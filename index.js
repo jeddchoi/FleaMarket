@@ -14,3 +14,4 @@ require('./models/User').seedAdminUser()
 
 app.listen(port)
 console.log(`Node.js server running on port ${port}`)
+app.use(express.static('content'));

@@ -1,18 +1,207 @@
-extends ../layout.pug
+//- extends ../layout.pug
 
-block content
-  h1.head-title Welcome to ShopStop!
-  form#search-form
-    input(type='text', name='query', placeholder='Search...')
-    input(type='submit', value='Search')
-  .cards
-    each product in products
-      .product-card
-        img.product-img(src=`${product.image}`)
-        h2=product.name
-        p=product.description
+//- block content
+//-   h1.head-title Welcome to ShopStop!
+//-   form#search-form
+//-     input(type='text', name='query', placeholder='Search...')
+//-     input(type='submit', value='Search')
+//-   .cards
+//-     each product in products
+//-       .product-card
+//-         img.product-img(src=`${product.image}`)
+//-         h2=product.name
+//-         p=product.description
 
         //- a.btn.btn-small.btn-success(href=`/product/buy/${product._id}`)= 'Buy'
         //- a.btn.btn-small.btn-warning(href=`/product/edit/${product._id}`)= 'Edit'
         //- a.btn.btn-small.btn-danger(href=`/product/delete/${product._id}`)= 'Delete'
         //- a.btn.btn-small.btn-primary(href=`/category/${product.category.name}/products`)=`More ${product.category.name}`
+
+extends ../layout.pug
+
+block content
+  //- Header Carousel
+  .container
+    .owl-carousel.owl-theme
+      .item
+        img(src='img/img.png', alt='')
+        .item-text
+          h1 1
+          h5 This is the first item. This is the first item. This is the first item.
+      .item
+        img(src='img/img.png', alt='')
+        .item-text
+          h1 2
+          h5 This is the Second item. This is the Second item. This is the Second item.
+      .item
+        img(src='img/img.png', alt='')
+        .item-text
+          h1 3
+          h5 This is the Third item. This is the Third item. This is the Third item.
+  //- Contents
+  .container
+    h1.my-5 Popular Items
+    //- Items
+    .row
+      each product in products
+        .col-lg-4.col-sm-6.portfolio-item
+          .card.h-100
+            img.card-img-top(src=`${product.image}`, alt='')
+            .card-body
+              h4.card-title=product.name
+              p.card-text=product.description
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Two
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Three
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod
+  //-             | sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis
+  //-             | mollitia recusandae vero vel quam!
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Four
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Five
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Six
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum
+  //-             | suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo
+  //-             | repellat fugiat excepturi! Nemo, esse.
+  //-   //- /.row
+  //- .container
+  //-   h1.my-5 New Items
+  //-   //- Items
+  //-   .row
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project One
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum
+  //-             | quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum
+  //-             | tempora ex quae? Nihil, dolorem!
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Two
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Three
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod
+  //-             | sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis
+  //-             | mollitia recusandae vero vel quam!
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Four
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Five
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Six
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum
+  //-             | suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo
+  //-             | repellat fugiat excepturi! Nemo, esse.
+  //-   //- /.row
+  //- .container
+  //-   h1.my-5 Closing Auctions
+  //-   //- Items
+  //-   .row
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project One
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum
+  //-             | quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum
+  //-             | tempora ex quae? Nihil, dolorem!
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Two
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Three
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos quisquam, error quod
+  //-             | sed cumque, odio distinctio velit nostrum temporibus necessitatibus et facere atque iure perspiciatis
+  //-             | mollitia recusandae vero vel quam!
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Four
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Five
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+  //-             | gravida pellentesque urna varius vitae.
+  //-     .col-lg-4.col-sm-6.portfolio-item
+  //-       .card.h-100
+  //-         img.card-img-top(src='http://placehold.it/700x400', alt='')
+  //-         .card-body
+  //-           h4.card-title Project Six
+  //-           p.card-text
+  //-             | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque earum nostrum
+  //-             | suscipit ducimus nihil provident, perferendis rem illo, voluptate atque, sit eius in voluptates, nemo
+  //-             | repellat fugiat excepturi! Nemo, esse.
+    //- /.row
