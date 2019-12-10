@@ -1,8 +1,6 @@
-var width;
-var card = $(".card-img-top");
-
 function setResponsive() {
-    width = card.width();
+    var card = $(".card-img-top");
+    var width = card.width();
     card.css('height', width);
     if($(window).width() < 992) {
         $('#nav_fixed_icon').removeClass("order-2");
@@ -12,13 +10,30 @@ function setResponsive() {
         $('.nav-margin').removeClass("w-25");
     }
 }
+
+// footer position
+function footerPosition() {
+    var height = $("body").height();
+    if(height < window.innerHeight) {
+        $("footer").css({
+            position: "fixed",
+            height: "100px",
+            bottom: "0",
+            width: "100%"
+        })
+    } else {
+        $("footer").removeAttr("style");
+    }
+}
  
 $(window).on('load', function() {
     setResponsive();
+    footerPosition();
 });
  
 $(window).on('resize', function() {
     setResponsive();
+    footerPosition();
 });
 
 // Item Link

@@ -1,3 +1,7 @@
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
 .navbar-brand img {
     height: 35px;
 }
@@ -60,6 +64,10 @@
     cursor: pointer;
 }
 
+.not-product {
+    cursor: auto;
+}
+
 .card-img-top {
     width: 100%;
     object-fit: cover;
@@ -87,6 +95,22 @@
     border-color: #f0e9ff;
     outline: 0;
     box-shadow: none;
+}
+
+.login {
+    max-width: 500px;
+}
+
+.register {
+    max-width: 800px;
+}
+
+.a-tag a {
+    color: grey;
+}
+
+.pagination a {
+    color: black;
 }
 
 #search_input_box {
