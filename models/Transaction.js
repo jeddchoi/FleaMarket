@@ -16,7 +16,8 @@ let transactionSchema = mongoose.Schema({
         ref: 'User'
     },
     executedTime: {
-        type: mongoose.Schema.Types.Date
+        type: mongoose.Schema.Types.Date,
+        default: Date.now
     }
 })
 

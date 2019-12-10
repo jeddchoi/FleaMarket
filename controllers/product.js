@@ -96,8 +96,11 @@ module.exports.registerGet = (req, res) => {
 module.exports.registerPost = (req, res) => {
   let productObj = req.body
   productObj.image = '\\' + req.file.path
-  productObj.creator = req.user._id
+  productObj.status = 'Registered'
+  productObj.seller = req.user._id
 
+  console.log(productObj)
+  console.log(req.user)
   Product.create(productObj).then((product) => {
     Category.findById(product.category).then((category) => {
       category.products.push(product._id)
@@ -105,6 +108,7 @@ module.exports.registerPost = (req, res) => {
     })
     res.redirect('/')
   })
+
 }
 
 module.exports.editGet = (req, res) => {

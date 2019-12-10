@@ -9,13 +9,14 @@ module.exports = (app) => {
 
   // product
   app.get('/product', controllers.product.index)
-  app.post('/product', auth.isInRole(['Seller']), upload.single('image'), controllers.product.registerPost)
+  
 
   app.get('/category', controllers.category.index)
   app.get('/category/:category', controllers.category.productByCategory)
 
 
   app.get('/product/register', auth.isInRole(['Seller']), controllers.product.registerGet)
+  app.post('/product/register', auth.isInRole(['Seller']), upload.single('image'), controllers.product.registerPost)
   app.get('/product/:id', controllers.product.detailGet)
   app.post('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyPost)
   app.post('/product/:id/bid', auth.isInRole(['Buyer']), controllers.product.bidPost)

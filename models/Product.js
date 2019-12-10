@@ -21,7 +21,8 @@ let productSchema = mongoose.Schema({
     default: 0
   },
   uploadTime: {
-    type: mongoose.Schema.Types.Date
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
   },
   isAuction: {
     type: mongoose.Schema.Types.Boolean,
