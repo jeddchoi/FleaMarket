@@ -1,31 +1,37 @@
 let Category = require('../models/Category')
 
 module.exports.index = (req, res) => {
-  Category.findOne()
-    .populate('products')
-    .then((category) => {
-      if (!category) {
+  Category.find()
+    .then((categories) => {
+      if (!categories) {
         res.sendStatus(404)
         return
       }
-
-      res.render('category/index', {
-        category: category
+      Category.findOne().populate('products').then((selectedCategory) => {
+        res.render('category/index', {
+          categories: categories,
+          selectedCategory: selectedCategory
+        })
       })
+
     })
 }
 
 module.exports.productByCategory = (req, res) => {
   let categoryName = req.params.category
 
-  Category.findOne({name: categoryName})
-    .populate('products')
-    .then((category) => {
-      if (!category) {
+  Category.find()
+    .then((categories) => {
+      if (!categories) {
         res.sendStatus(404)
         return
       }
-
-      res.render('category/index', {category: category})
+      Category.findOne({name:categoryName}).populate('products').then((selectedCategory)=> {
+        res.render('category/index', {
+          categories: categories,
+          selectedCategory: selectedCategory
+        })
+      })
+      
     })
 }
