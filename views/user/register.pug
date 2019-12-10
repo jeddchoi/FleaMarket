@@ -1,30 +1,78 @@
 extends ../layout.pug
 
 block content 
-  form.form.center-form(method='post')
-    h2 Register User
-    .form-group
-      label(for='role') Role
-      select#role.input-field(name='role')
-        option Buyer
-        option Seller  
-    .form-group
-      label(for='username') Username
-      input#username.input-field(name='username', type='text' value=username)
-    .form-group
-      label(for='password') Password
-      input#password.input-field(name='password', type='password')
-    .form-group
-      label(for='confirmedPassword') Confirm Password
-      input#confirmedPassword.input-field(name='confirmedPassword', type='password')
-    .form-group
-      label(for='name') Name
-      input#name.input-field(name='name', type='text' value=name)
-    .form-group
-      label(for='email') Email
-      input#email.input-field(name='email', type='text' value=email)
-    .form-group
-      label(for='address') Address
-      input#address.input-field(name='address', type='text' value=address)
-    .form-group
-      input.form-btn.btn(type='submit', value='Register')
+  //- form.form.center-form(method='post')
+  //-   h2 Register User
+  //-   .form-group
+  //-     label(for='role') Role
+  //-     select#role.input-field(name='role')
+  //-       option Buyer
+  //-       option Seller  
+  //-   .form-group
+  //-     label(for='username') Username
+  //-     input#username.input-field(name='username', type='text' value=username)
+  //-   .form-group
+  //-     label(for='password') Password
+  //-     input#password.input-field(name='password', type='password')
+  //-   .form-group
+  //-     label(for='confirmedPassword') Confirm Password
+  //-     input#confirmedPassword.input-field(name='confirmedPassword', type='password')
+  //-   .form-group
+  //-     label(for='name') Name
+  //-     input#name.input-field(name='name', type='text' value=name)
+  //-   .form-group
+  //-     label(for='email') Email
+  //-     input#email.input-field(name='email', type='text' value=email)
+  //-   .form-group
+  //-     label(for='address') Address
+  //-     input#address.input-field(name='address', type='text' value=address)
+  //-   .form-group
+  //-     input.form-btn.btn(type='submit', value='Register')
+
+  
+  .container.register
+    .card.not-product.card-register.mx-auto.my-5
+      .card-header Register an Account
+      .card-body
+        form.form.center-form(method='post')
+          .form-group
+            .form-row
+              .col-md-6
+                select#role.form-control(name='role')
+                  option Buyer
+                  option Seller
+                label(for='role') Role
+          .form-group
+            .form-row
+              .col-md-6
+                .form-label-group
+                  input#username.form-control(name='username', type='text', placeholder='User name', required='required', autofocus='autofocus')
+                  label(for='username') User name
+          .form-group
+            .form-row
+              .col-md-6
+                .form-label-group
+                  input#password.form-control(name='password', type='password', placeholder='Password', required='required')
+                  label(for='password') Password
+              .col-md-6
+                .form-label-group
+                  input#cconfirmedPassword.form-control(name='confirmedPassword', type='password', placeholder='Confirm password', required='required')
+                  label(for='confirmPassword') Confirm password
+          .form-group
+            .form-row
+              .col-md-6
+                .form-label-group
+                  input#name.form-control(name='name', type='text', placeholder='Name', required='required', autofocus='autofocus')
+                  label(for='name') Name
+          .form-group
+            .form-label-group
+              input#email.form-control(name='email', type='email', placeholder='Email address', required='required')
+              label(for='inputEmail') Email address
+          .form-group
+            .form-label-group
+              input#address.form-control(name='address', type='text', placeholder='Address', required='required')
+              label(for='address') Address
+          .form-group
+          input.btn.btn-light.btn-block.form-btn(type='submit', value='Register')
+        .text-center.a-tag
+          a.d-block.small.mt-3(href='/user/login') Login Page

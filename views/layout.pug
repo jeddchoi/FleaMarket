@@ -92,12 +92,15 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         if user
           if user.role === 'Seller'
             li.nav-item
-              a.nav-link(href='/register') Register
+              a.nav-link(href='/product/register') Register
           else if user.role === 'Admin'
             li.nav-item
               a.nav-link(href='/member') Member
             li.nav-item
               a.nav-link(href='/log') Log
+          else
+            li.nav-item
+              a.nav-link(href='/wishlist') Wish List
         else
           li.nav-item
               a.nav-link(href='/wishlist') Wish List
@@ -112,7 +115,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         a#search.nav-link(href='#')
           i.fas.fa-search
       li.nav-item
-        a.nav-link(href='/user')
+        a.nav-link(href='/user/login')
           i.fas.fa-user
 #search_input_box.search_input
   .container
@@ -146,8 +149,8 @@ footer.py-5.bg-light
 // JQuery JavaScript
 script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
 // Bootstrap JavaScript
-script(src='js/bootstrap.min.js')
+script(src='/content/js/bootstrap.min.js')
 // Owl Carousel JavaScript
-script(src='owlcarousel/owl.carousel.min.js')
+script(src='/content/owlcarousel/owl.carousel.min.js')
 // Custom JavaScript
-script(src='js/custom.js')
+script(src='/content/js/custom.js')
