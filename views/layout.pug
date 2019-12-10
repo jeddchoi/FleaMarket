@@ -86,20 +86,20 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           a.nav-link(href='/product') All Products
         li.nav-item
           a.nav-link(href='/category') Category
-        li.nav-item
-          form#logout-form(method="post" action="/user/logout")
-            a.nav-link(href='javascript:document.getElementById("logout-form").submit()') Logout
         if user
+          li.nav-item
+            form#logout-form(method="post" action="/user/logout")
+              a.nav-link(href='javascript:document.getElementById("logout-form").submit()') Logout
           if user.role === 'Seller'
             li.nav-item
-              a.nav-link(href='/register') Register
+              a.nav-link(href='/product/register') Register
           else if user.role === 'Admin'
             li.nav-item
               a.nav-link(href='/member') Member
             li.nav-item
               a.nav-link(href='/log') Log
-        else
-          li.nav-item
+          else
+            li.nav-item
               a.nav-link(href='/wishlist') Wish List
 
     .nav-margin

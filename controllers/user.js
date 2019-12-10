@@ -2,8 +2,25 @@ const User = require('../models/User')
 const encryption = require('../utilities/encryption')
 
 module.exports.index = (req, res) => {
-  res.redirect('/')
+  if (req.user) {
+    switch (req.user.role) {
+      case 'Buyer':
+        res.render('./user/mypage_buyer')
+        break
+
+      case 'Seller':
+        res.render('./user/mypage_seller')
+        break
+
+      case 'Admin':
+        res.render('./user/mypage_admin')
+        break
+    }
+  } else {
+    res.redirect('/user/login')
+  }
 }
+
 module.exports.wishlistGet = (req, res) => {
   res.render('/wishlist/index')
 }
