@@ -67,6 +67,22 @@ module.exports.cancelPurchasePost = (req, res) => {
     user: req.user._id
   })
 
+  
+  Product.findById(productId).then(product => {
+    if (product.status != "Registered") {
+      let error = `error=${encodeURIComponent('Product was already bought')}`
+      res.redirect(`/?${error}`)
+      return
+    }
+
+    product.status = "InProgress"
+    product.save().then(() => {
+      req.user.boughtProducts.push(productId)
+      req.user.save().then(() => {
+        res.redirect('/')
+      })
+    })
+  })
 
 }
 

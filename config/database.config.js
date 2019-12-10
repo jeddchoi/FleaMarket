@@ -3,8 +3,11 @@ const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
 module.exports = (config) => {
-  mongoose.connect(config.connectionString)
-
+  mongoose.connect(config.connectionString, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  mongoose.set('useCreateIndex', true)
   let database = mongoose.connection
 
   database.once('open', (err) => {
