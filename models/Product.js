@@ -1,11 +1,19 @@
 const mongoose = require('mongoose')
 
 let productSchema = mongoose.Schema({
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    red: 'Category'
+  },
   name: {
     type: mongoose.Schema.Types.String,
     required: true
   },
   description: {
+    type: mongoose.Schema.Types.String,
+    required: true
+  },
+  image: {
     type: mongoose.Schema.Types.String
   },
   price: {
@@ -14,16 +22,27 @@ let productSchema = mongoose.Schema({
     max: Number.MAX_VALUE,
     default: 0
   },
-  image: {
-    type: mongoose.Schema.Types.String
+  uploadTime: {
+    type: mongoose.Schema.Types.Date,
+    required: true
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    red: 'Category'
-  },
-  isBought: {
+  isAuction: {
     type: mongoose.Schema.Types.Boolean,
     default: false
+  },
+  status: {
+    type: mongoose.Schema.Types.String,
+    enum: {
+      values: ['None', 'Registered', 'InProgress', 'Completed']
+    }
+  },
+  priceHistory: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 })
 

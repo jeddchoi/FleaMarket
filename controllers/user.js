@@ -1,6 +1,10 @@
 const User = require('../models/User')
 const encryption = require('../utilities/encryption')
 
+module.exports.wishlist = (req, res) => {
+  res.render('/wishlist/index')
+}
+
 module.exports.registerGet = (req, res) => {
   res.render('user/register')
 }
@@ -62,4 +66,29 @@ module.exports.loginPost = (req, res) => {
 module.exports.logout = (req, res) => {
   req.logout()
   res.redirect('/')
+}
+
+
+module.exports.getUsers = (req, res) => {
+  res.render('/member/index')
+}
+
+module.exports.detailGet = (req, res) => {
+  res.render('/member/detail')
+}
+
+module.exports.editGet = (req, res) => {
+  res.render('/member/edit')
+}
+
+module.exports.editPost = (req, res) => {
+  res.render('/member/index')
+}
+
+module.exports.deleteGet = (req, res) => {
+  res.render('/member')
+}
+
+module.exports.deletePost = (req, res) => {
+  res.render('/member')
 }

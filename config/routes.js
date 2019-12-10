@@ -7,26 +7,44 @@ let upload = multer({dest: './content/images'})
 module.exports = (app) => {
   app.get('/', controllers.home.index)
 
-  app.get('/product/add', auth.isAuthenticated, controllers.product.addGet)
-  app.post('/product/add', auth.isAuthenticated, upload.single('image'), controllers.product.addPost)
+  // all products
+  app.get('/allproducts', controllers.product.index)
 
-  // app.get('/category/add', auth.isInRole('Admin'), controllers.category.addGet)
-  // app.post('/category/add', auth.isInRole('Admin'), controllers.category.addPost)
+  app.get('/product/:id', controllers.product.detailGet)
+  // app.get('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyGet)
+  app.post('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyPost)
+  app.post('/product/:id/bid', auth.isInRole(['Buyer']), controllers.product.bidPost)
+  
 
-  app.get('/category/add', controllers.category.addGet)
-  app.post('/category/add', controllers.category.addPost)
+  // products by categories
+  app.get('/category', controllers.category.index)
 
-  app.get('/category/:category/products', controllers.category.productByCategory)
+  // products by a category
+  app.get('/category/:category', controllers.category.productByCategory)
 
-  app.get('/product/edit/:id', auth.isAuthenticated, controllers.product.editGet)
-  app.post('/product/edit/:id', auth.isAuthenticated, upload.single('image'), controllers.product.editPost)
+  // BUYER
+  app.get('/wishlist', auth.isInRole(['Buyer']), controllers.user.wishlist)
 
-  app.get('/product/delete/:id', auth.isAuthenticated, controllers.product.deleteGet)
-  app.post('/product/delete/:id', auth.isAuthenticated, controllers.product.deletePost)
+  // SELLER
+  app.get('/product/register', auth.isInRole(['Seller']), controllers.product.registerGet)
+  app.post('/product/register', auth.isInRole(['Seller']), upload.single('image'), controllers.product.registerPost)
+  app.get('/product/:id/edit', auth.isInRole(['Seller']), controllers.product.editGet)
+  app.post('/product/:id/edit', auth.isInRole(['Seller']), upload.single('image'), controllers.product.editPost)
+  app.get('/product/:id/delete', auth.isInRole(['Seller']), controllers.product.deleteGet)
+  app.post('/product/:id/delete', auth.isInRole(['Seller']), controllers.product.deletePost)
 
-  app.get('/product/buy/:id', auth.isAuthenticated, controllers.product.buyGet)
-  app.post('/product/buy/:id', auth.isAuthenticated, controllers.product.buyPost)
+  // ADMIN
+  app.get('/member', auth.isInRole(['Admin']), controllers.user.getUsers)
+  app.get('/member/:id', auth.isInRole(['Admin']), controllers.user.detailGet)
+  app.get('/member/:id/edit', auth.isInRole(['Admin']), controllers.user.editGet)
+  app.post('/member/:id/edit', auth.isInRole(['Admin']), controllers.user.editPost)
+  app.get('/member/:id/delete', auth.isInRole(['Admin']), controllers.user.deleteGet)
+  app.post('/member/:id/delete', auth.isInRole(['Admin']), controllers.user.deletePost)
+  
+  app.get('/logs', auth.isInRole(['Admin']), controllers.transaction.index)
 
+
+  app.get('/user', controllers.user.index)
   app.get('/user/register', controllers.user.registerGet)
   app.post('/user/register', controllers.user.registerPost)
 

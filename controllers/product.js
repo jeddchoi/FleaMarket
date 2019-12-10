@@ -3,13 +3,96 @@ const path = require('path')
 const Product = require('../models/Product')
 const Category = require('../models/Category')
 
-module.exports.addGet = (req, res) => {
+module.exports.index = (req, res) => {
+  
+  Product.find({
+    buyer: null
+  }).populate('category').then((products) => {
+    let data = {
+      products: products
+    }
+    if (req.query.error) {
+      data.error = req.query.error
+    } else if (req.query.success) {
+      data.success = req.query.success
+    }
+    res.render('allproducts/index', data)
+  })
+}
+
+module.exports.detailGet = (req, res) => {
+  let id = req.params.id
+  Product.findById(id).then(product => {
+    if (!product) {
+      res.sendStatus(404)
+      return
+    }
+    res.render('product/detail', {product:product})
+  })
+}
+
+// module.exports.buyGet = (req, res) => {
+//   let id = req.params.id
+//   Product.findById(id).then(product => {
+//     if (!product) {
+//       res.sendStatus(404)
+//       return
+//     }
+
+//     res.render('product/buy', {
+//       product: product
+//     })
+//   })
+// }
+
+module.exports.buyPost = (req, res) => {
+  let productId = req.params.id
+
+  Product.findById(productId).then(product => {
+    if (product.buyer) {
+      let error = `error=${encodeURIComponent('Product was already bought')}`
+      res.redirect(`/?${error}`)
+      return
+    }
+
+    product.buyer = req.user._id
+    product.save().then(() => {
+      req.user.boughtProducts.push(productId)
+      req.user.save().then(() => {
+        res.redirect('/')
+      })
+    })
+  })
+}
+
+module.exports.bidPost = (req, res) => {
+  let productId = req.params.id
+
+  Product.findById(productId).then(product => {
+    if (product.buyer) {
+      let error = `error=${encodeURIComponent('Product was already bought')}`
+      res.redirect(`/?${error}`)
+      return
+    }
+
+    product.buyer = req.user._id
+    product.save().then(() => {
+      req.user.boughtProducts.push(productId)
+      req.user.save().then(() => {
+        res.redirect('/')
+      })
+    })
+  })
+}
+
+
+module.exports.registerGet = (req, res) => {
   Category.find().then((categories) => {
     res.render('product/add', {categories: categories})
   })
 }
 
-module.exports.addPost = (req, res) => {
+module.exports.registerPost = (req, res) => {
   let productObj = req.body
   productObj.image = '\\' + req.file.path
   productObj.creator = req.user._id
@@ -140,34 +223,3 @@ module.exports.deletePost = (req, res) => {
   })
 }
 
-module.exports.buyGet = (req, res) => {
-  let id = req.params.id
-  Product.findById(id).then(product => {
-    if (!product) {
-      res.sendStatus(404)
-      return
-    }
-
-    res.render('product/buy', {product: product})
-  })
-}
-
-module.exports.buyPost = (req, res) => {
-  let productId = req.params.id
-
-  Product.findById(productId).then(product => {
-    if (product.buyer) {
-      let error = `error=${encodeURIComponent('Product was already bought')}`
-      res.redirect(`/?${error}`)
-      return
-    }
-
-    product.buyer = req.user._id
-    product.save().then(() => {
-      req.user.boughtProducts.push(productId)
-      req.user.save().then(() => {
-        res.redirect('/')
-      })
-    })
-  })
-}

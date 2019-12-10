@@ -1,16 +1,18 @@
 let Category = require('../models/Category')
 
-module.exports.addGet = (req, res) => {
-  res.render('category/add')
-}
+module.exports.index = (req, res) => {
+  Category.findOne()
+    .populate('products')
+    .then((category) => {
+      if (!category) {
+        res.sendStatus(404)
+        return
+      }
 
-module.exports.addPost = (req, res) => {
-  let category = req.body
-  category.creator = req.user._id
-
-  Category.create(category).then(() => {
-    res.redirect('/')
-  })
+      res.render('category/products', {
+        category: category
+      })
+    })
 }
 
 module.exports.productByCategory = (req, res) => {
