@@ -22,11 +22,11 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.wishlistGet = (req, res) => {
-  res.render('/wishlist/index')
+  res.render('./wishlist/index')
 }
 
 module.exports.wishlistPost = (req, res) => {
-  res.render('/wishlist/index')
+  res.render('./wishlist/index')
 }
 
 module.exports.registerGet = (req, res) => {
