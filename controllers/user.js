@@ -1,6 +1,9 @@
 const User = require('../models/User')
 const encryption = require('../utilities/encryption')
 
+module.exports.index = (req, res) => {
+  res.redirect('/')
+}
 module.exports.wishlist = (req, res) => {
   res.render('/wishlist/index')
 }

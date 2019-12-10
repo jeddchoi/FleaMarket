@@ -6,9 +6,9 @@ module.exports = {
       res.redirect('/user/login')
     }
   },
-  isInRole: (role) => {
+  isInRole: (roles) => {
     return (req, res, next) => {
-      if (req.user && req.user.role.indexOf(role) > -1) {
+      if (req.user && roles.indexOf(req.user.role) > -1) {
         next()
       } else {
         res.redirect('/user/login')
