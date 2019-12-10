@@ -59,6 +59,14 @@ module.exports.purchasePost = (req, res) => {
 }
 
 module.exports.cancelPurchasePost = (req, res) => {
+  let productId = req.params.id
+
+  Transaction.create({
+    product: productId,
+    type: "CancelPurchase",
+    user: req.user._id
+  })
+
 
 }
 
