@@ -21,6 +21,7 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.detailGet = (req, res) => {
+  console.log('detailGET')
   let id = req.params.id
   Product.findById(id).then(product => {
     if (!product) {
@@ -88,7 +89,7 @@ module.exports.bidPost = (req, res) => {
 
 module.exports.registerGet = (req, res) => {
   Category.find().then((categories) => {
-    res.render('product/add', {categories: categories})
+    res.render('product/register', {categories: categories})
   })
 }
 

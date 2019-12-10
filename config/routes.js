@@ -7,40 +7,32 @@ let upload = multer({dest: './content/images'})
 module.exports = (app) => {
   app.get('/', controllers.home.index)
 
-  // all products
-  app.get('/allproducts', controllers.product.index)
+  // product
+  app.get('/product', controllers.product.index)
+  app.post('/product', auth.isInRole(['Seller']), upload.single('image'), controllers.product.registerPost)
 
-  app.get('/product/:id', controllers.product.detailGet)
-  // app.get('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyGet)
-  app.post('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyPost)
-  app.post('/product/:id/bid', auth.isInRole(['Buyer']), controllers.product.bidPost)
-  
-
-  // products by categories
   app.get('/category', controllers.category.index)
-
-  // products by a category
   app.get('/category/:category', controllers.category.productByCategory)
 
-  // BUYER
-  app.get('/wishlist', auth.isInRole(['Buyer']), controllers.user.wishlist)
 
-  // SELLER
   app.get('/product/register', auth.isInRole(['Seller']), controllers.product.registerGet)
-  app.post('/product/register', auth.isInRole(['Seller']), upload.single('image'), controllers.product.registerPost)
+  app.get('/product/:id', controllers.product.detailGet)
+  app.post('/product/:id/buy', auth.isInRole(['Buyer']), controllers.product.buyPost)
+  app.post('/product/:id/bid', auth.isInRole(['Buyer']), controllers.product.bidPost)
   app.get('/product/:id/edit', auth.isInRole(['Seller']), controllers.product.editGet)
   app.post('/product/:id/edit', auth.isInRole(['Seller']), upload.single('image'), controllers.product.editPost)
   app.get('/product/:id/delete', auth.isInRole(['Seller']), controllers.product.deleteGet)
   app.post('/product/:id/delete', auth.isInRole(['Seller']), controllers.product.deletePost)
 
-  // ADMIN
+  app.get('/wishlist', auth.isInRole(['Buyer']), controllers.user.wishlist)
+  
   app.get('/member', auth.isInRole(['Admin']), controllers.user.getUsers)
   app.get('/member/:id', auth.isInRole(['Admin']), controllers.user.detailGet)
   app.get('/member/:id/edit', auth.isInRole(['Admin']), controllers.user.editGet)
   app.post('/member/:id/edit', auth.isInRole(['Admin']), controllers.user.editPost)
   app.get('/member/:id/delete', auth.isInRole(['Admin']), controllers.user.deleteGet)
   app.post('/member/:id/delete', auth.isInRole(['Admin']), controllers.user.deletePost)
-  
+
   app.get('/logs', auth.isInRole(['Admin']), controllers.transaction.index)
 
 

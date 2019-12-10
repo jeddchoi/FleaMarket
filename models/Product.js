@@ -6,12 +6,10 @@ let productSchema = mongoose.Schema({
     red: 'Category'
   },
   name: {
-    type: mongoose.Schema.Types.String,
-    required: true
+    type: mongoose.Schema.Types.String
   },
   description: {
-    type: mongoose.Schema.Types.String,
-    required: true
+    type: mongoose.Schema.Types.String
   },
   image: {
     type: mongoose.Schema.Types.String
@@ -23,8 +21,7 @@ let productSchema = mongoose.Schema({
     default: 0
   },
   uploadTime: {
-    type: mongoose.Schema.Types.Date,
-    required: true
+    type: mongoose.Schema.Types.Date
   },
   isAuction: {
     type: mongoose.Schema.Types.Boolean,

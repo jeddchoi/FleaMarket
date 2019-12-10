@@ -9,7 +9,7 @@ module.exports.index = (req, res) => {
         return
       }
 
-      res.render('category/products', {
+      res.render('category/index', {
         category: category
       })
     })
@@ -26,6 +26,6 @@ module.exports.productByCategory = (req, res) => {
         return
       }
 
-      res.render('category/products', {category: category})
+      res.render('category/index', {category: category})
     })
 }

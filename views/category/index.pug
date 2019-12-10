@@ -1,13 +1,14 @@
 extends ../layout.pug
 
 block content
-  //- h1.head-title Welcome to ShopStop!
-  //- form#search-form
-  //-   input(type='text', name='query', placeholder='Search...')
-  //-   input(type='submit', value='Search')
-  //- .cards
-  //-   each product in category.products
-  //-     .product-card
-  //-       img.product-img(src=`${product.image}`)
-  //-       h2=product.name
-  //-       p=product.description
+  .container
+    h1.my-5 Category Items
+    //- Items
+    .row
+      each product in category.products
+        .col-lg-4.col-sm-6.portfolio-item
+          .card.h-100
+            img.card-img-top(src=`${product.image}`, alt='')
+            .card-body
+              h4.card-title=product.name
+              p.card-text=product.description
