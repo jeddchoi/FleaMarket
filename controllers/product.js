@@ -2,9 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const Product = require('../models/Product')
 const Category = require('../models/Category')
+const Transaction = require('../models/Transaction')
 
 module.exports.index = (req, res) => {
-  
   Product.find({
     buyer: null
   }).populate('category').then((products) => {
@@ -21,7 +21,6 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.detailGet = (req, res) => {
-  console.log('detailGET')
   let id = req.params.id
   Product.findById(id).then(product => {
     if (!product) {
@@ -32,31 +31,24 @@ module.exports.detailGet = (req, res) => {
   })
 }
 
-// module.exports.buyGet = (req, res) => {
-//   let id = req.params.id
-//   Product.findById(id).then(product => {
-//     if (!product) {
-//       res.sendStatus(404)
-//       return
-//     }
-
-//     res.render('product/buy', {
-//       product: product
-//     })
-//   })
-// }
-
-module.exports.buyPost = (req, res) => {
+module.exports.purchasePost = (req, res) => {
   let productId = req.params.id
+  
+  Transaction.create({
+    product: productId,
+    type: "Purchase",
+    user: req.user._id
+  })
+  
 
   Product.findById(productId).then(product => {
-    if (product.buyer) {
+    if (product.status != "Registered") {
       let error = `error=${encodeURIComponent('Product was already bought')}`
       res.redirect(`/?${error}`)
       return
     }
 
-    product.buyer = req.user._id
+    product.status = "InProgress"
     product.save().then(() => {
       req.user.boughtProducts.push(productId)
       req.user.save().then(() => {
@@ -64,11 +56,25 @@ module.exports.buyPost = (req, res) => {
       })
     })
   })
+}
+
+module.exports.cancelPurchasePost = (req, res) => {
+
+}
+
+module.exports.confirmSalePost = (req, res) => {
+
 }
 
 module.exports.bidPost = (req, res) => {
   let productId = req.params.id
 
+  Transaction.create({
+    product: productId,
+    type: "Bid",
+    user: req.user._id
+  })
+
   Product.findById(productId).then(product => {
     if (product.buyer) {
       let error = `error=${encodeURIComponent('Product was already bought')}`
@@ -86,6 +92,17 @@ module.exports.bidPost = (req, res) => {
   })
 }
 
+module.exports.drawPost = (req, res) => {
+
+}
+
+module.exports.cancelDrawPost = (req, res) => {
+
+}
+
+module.exports.confirmPurchasePost = (req, res) => {
+
+}
 
 module.exports.registerGet = (req, res) => {
   Category.find().then((categories) => {
@@ -99,8 +116,13 @@ module.exports.registerPost = (req, res) => {
   productObj.status = 'Registered'
   productObj.seller = req.user._id
 
-  console.log(productObj)
-  console.log(req.user)
+
+  Transaction.create({
+    product: productObj._id,
+    type: "Register",
+    user: req.user._id
+  })
+  
   Product.create(productObj).then((product) => {
     Category.findById(product.category).then((category) => {
       category.products.push(product._id)
@@ -109,6 +131,10 @@ module.exports.registerPost = (req, res) => {
     res.redirect('/')
   })
 
+}
+
+module.exports.unregisterPost = (req, res) => {
+  res.redirect('/')
 }
 
 module.exports.editGet = (req, res) => {

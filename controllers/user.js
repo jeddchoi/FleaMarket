@@ -4,7 +4,11 @@ const encryption = require('../utilities/encryption')
 module.exports.index = (req, res) => {
   res.redirect('/')
 }
-module.exports.wishlist = (req, res) => {
+module.exports.wishlistGet = (req, res) => {
+  res.render('/wishlist/index')
+}
+
+module.exports.wishlistPost = (req, res) => {
   res.render('/wishlist/index')
 }
 
