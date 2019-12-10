@@ -44,11 +44,17 @@ block content
     //- Items
     .row
       each product in products
-        .col-lg-4.col-sm-6.portfolio-item
+        .col-lg-4.col-md-6.mb-4
           .card.h-100
             img.card-img-top(src=`${product.image}`, alt='')
+            .card-footer
+              if product.isAuction
+                h5 Auction
+              else
+                h5 Buy It Now
             .card-body
               h4.card-title=product.name
+              h5=product.price+"₩"
               p.card-text=product.description
   //-     .col-lg-4.col-sm-6.portfolio-item
   //-       .card.h-100

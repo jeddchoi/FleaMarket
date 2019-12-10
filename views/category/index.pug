@@ -1,14 +1,44 @@
 extends ../layout.pug
 
 block content
+  // Contents
   .container
-    h1.my-5 Category Items
-    //- Items
     .row
-      each product in category.products
-        .col-lg-4.col-sm-6.portfolio-item
-          .card.h-100
-            img.card-img-top(src=`${product.image}`, alt='')
-            .card-body
-              h4.card-title=product.name
-              p.card-text=product.description
+      .col-lg-3
+        h1.my-5 Category
+        .list-group.a-tag
+          //- each cat in category
+          //-   a.list-group-item(href='#')=cat.name
+      .col-lg-9.my-5
+        .row
+          each product in category.products
+            .col-lg-4.col-md-6.mb-4
+              .card.h-100
+                img.card-img-top(src=`${product.image}`, alt='')
+                .card-footer
+                  if product.isAuction
+                    h5 Auction
+                  else
+                    h5 Buy It Now
+                .card-body
+                  h4.card-title=product.name
+                  h5=product.price+"₩"
+                  p.card-text=product.description
+          
+          .col-lg-12.my-4
+            nav(aria-label='Page navigation')
+              ul.pagination.justify-content-center
+                li.page-item
+                  a.page-link(href='#', aria-label='Previous')
+                    span(aria-hidden='true') &laquo;
+                    span.sr-only Previous
+                li.page-item
+                  a.page-link(href='#') 1
+                li.page-item
+                  a.page-link(href='#') 2
+                li.page-item
+                  a.page-link(href='#') 3
+                li.page-item
+                  a.page-link(href='#', aria-label='Next')
+                    span(aria-hidden='true') &raquo;
+                    span.sr-only Next
