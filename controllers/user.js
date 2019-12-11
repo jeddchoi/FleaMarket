@@ -22,13 +22,17 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.wishlistGet = (req, res) => {
+<<<<<<< HEAD
   User.findById(req.user._id).populate('wishlist').then((products)=> {
     res.render('/wishlist/index', {products:products})
   })
+=======
+  res.render('./wishlist/index')
+>>>>>>> 2fc615ef834445593234c2d508cad8555515873f
 }
 
 module.exports.wishlistPost = (req, res) => {
-  res.render('/wishlist/index')
+  res.render('./wishlist/index')
 }
 
 module.exports.registerGet = (req, res) => {
