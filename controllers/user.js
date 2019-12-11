@@ -22,7 +22,9 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.wishlistGet = (req, res) => {
-  res.render('/wishlist/index')
+  User.findById(req.user._id).populate('wishlist').then((products)=> {
+    res.render('/wishlist/index', {products:products})
+  })
 }
 
 module.exports.wishlistPost = (req, res) => {
