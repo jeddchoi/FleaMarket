@@ -5,15 +5,15 @@ module.exports.index = (req, res) => {
   if (req.user) {
     switch (req.user.role) {
       case 'Buyer':
-        res.render('./user/mypage_buyer')
+        res.render('user/mypage_buyer')
         break
 
       case 'Seller':
-        res.render('./user/mypage_seller')
+        res.render('user/mypage_seller')
         break
 
       case 'Admin':
-        res.render('./user/mypage_admin')
+        res.render('user/mypage_admin')
         break
     }
   } else {
@@ -22,8 +22,15 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.wishlistGet = (req, res) => {
-  User.findById(req.user._id).populate('wishlist').then((products)=> {
-    res.render('/wishlist/index', {products:products})
+  User.findById(req.user._id).populate('wishlist').then((user)=> {
+    if (!user) {
+      res.redirect(`/?error=${encodeURIComponent('User was not found!')}`)
+      return
+    }
+    let data = {
+      products: user.wishlist
+    }
+    res.render('wishlist/index', data)
   })
 }
 
@@ -32,7 +39,7 @@ module.exports.wishlistPost = (req, res) => {
 }
 
 module.exports.registerGet = (req, res) => {
-  res.render('user/register')
+  res.render('./user/register')
 }
 
 module.exports.registerPost = (req, res) => {
