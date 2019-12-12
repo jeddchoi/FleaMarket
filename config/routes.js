@@ -36,7 +36,7 @@ module.exports = (app) => {
   app.post('/product/:id/delete', auth.isInRole(['Seller']), controllers.product.deletePost)
 
   app.get('/wishlist', auth.isInRole(['Buyer']), controllers.user.wishlistGet)
-  app.get('/wishlist', auth.isInRole(['Buyer']), controllers.user.wishlistPost)
+  app.get('/wishlist/:id', auth.isInRole(['Buyer']), controllers.user.wishlistPost)
 
   app.get('/member', auth.isInRole(['Admin']), controllers.user.getUsers)
   app.get('/member/:id', auth.isInRole(['Admin']), controllers.user.detailGet)

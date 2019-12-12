@@ -35,11 +35,15 @@ module.exports.wishlistGet = (req, res) => {
 }
 
 module.exports.wishlistPost = (req, res) => {
-  res.render('./wishlist/index')
+  let productId = req.params.id
+  req.user.wishlist.push(productId)
+  req.user.save().then(()=> {
+    res.redirect('/wishlist')
+  })
 }
 
 module.exports.registerGet = (req, res) => {
-  res.render('./user/register')
+  res.render('user/register')
 }
 
 module.exports.registerPost = (req, res) => {
@@ -103,25 +107,25 @@ module.exports.logout = (req, res) => {
 
 
 module.exports.getUsers = (req, res) => {
-  res.render('/member/index')
+  res.render('member/index')
 }
 
 module.exports.detailGet = (req, res) => {
-  res.render('/member/detail')
+  res.render('member/detail')
 }
 
 module.exports.editGet = (req, res) => {
-  res.render('/member/edit')
+  res.render('member/edit')
 }
 
 module.exports.editPost = (req, res) => {
-  res.render('/member/index')
+  res.render('member/index')
 }
 
 module.exports.deleteGet = (req, res) => {
-  res.render('/member')
+  res.render('member')
 }
 
 module.exports.deletePost = (req, res) => {
-  res.render('/member')
+  res.render('member')
 }
