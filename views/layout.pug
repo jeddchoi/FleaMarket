@@ -24,9 +24,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           a.nav-link(href='/category') Category
         if user
-          li.nav-item
-            form#logout-form(method="post" action="/user/logout")
-              a.nav-link(href='javascript:document.getElementById("logout-form").submit()') Logout
           if user.role === 'Seller'
             li.nav-item
               a.nav-link(href='/product/register') Register
@@ -38,12 +35,15 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           else
             li.nav-item
               a.nav-link(href='/wishlist') Wish List
+          li.nav-item
+            form#logout-form(method="post" action="/user/logout")
+              a.nav-link(href='javascript:document.getElementById("logout-form").submit()') Logout
 
     .nav-margin
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav')
         span.navbar-toggler-icon
     a.navbar-brand.order-0.nav-margin(href='/')
-      img(src='/content/img/logo.png', alt='Logo')
+      img(src='/content/img/logo2.png', alt='Logo')
     ul#nav_fixed_icon.navbar-nav.flex-row.d-md-flex.order-2
       li.nav-item
         a#search.nav-link(href='#')

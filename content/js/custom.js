@@ -4,10 +4,8 @@ function setResponsive() {
     card.css('height', width);
     if($(window).width() < 992) {
         $('#nav_fixed_icon').removeClass("order-2");
-        $('.nav-margin').addClass("w-25");
     } else {
         $('#nav_fixed_icon').addClass("order-2");
-        $('.nav-margin').removeClass("w-25");
     }
 }
 

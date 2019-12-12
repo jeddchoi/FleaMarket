@@ -4,5 +4,106 @@
 extends ../layout.pug
 
 block content
+    // Contents
     .container
         h1.my-5 My Page
+        .row
+            // User info
+            .col.account-info-container
+                .account-info
+                    h4.mb-4 Account Info
+                    ul
+                        li.account-info-list
+                            p.account-info-p Role
+                            span=': ' + user.role
+                        li.account-info-list
+                            p.account-info-p Name
+                            span=': ' + user.name
+                        li.account-info-list
+                            p.account-info-p Email
+                            span=': ' + user.email
+                        li.account-info-list
+                            p.account-info-p Address
+                            span=': ' + user.address
+            // Purchased product list
+            .card.not-product.mx-auto.my-5
+                .card-header Purchased
+                .card-body
+                    .row
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Buy It Now
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Buy It Now
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Buy It Now
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
+            // Auction product list
+            .card.not-product.mx-auto.my-5
+                .card-header Auction
+                .card-body
+                    .row
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Auction
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Auction
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
+                        .col-lg-4.col-md-6.mb-4
+                            .card.h-100
+                                img.card-img-top(src='http://placehold.it/700x400', alt='')
+                                .card-footer
+                                    h5 Auction
+                                .card-body
+                                    h4.card-title Item One
+                                    h5 $24.99
+                                    p.card-text
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                        | numquam
+                                        | aspernatur!
