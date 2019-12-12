@@ -13,7 +13,7 @@ block content
         .row
           each product in selectedCategory.products
             .col-lg-4.col-md-6.mb-4
-              .card.h-100
+              a.card.h-100(href="/product/:id")
                 img.card-img-top(src=`${product.image}`, alt='')
                 .card-footer
                   if product.isAuction
@@ -24,21 +24,3 @@ block content
                   h4.card-title=product.name
                   h5="₩"+product.price
                   p.card-text=product.description
-          
-          .col-lg-12.my-4
-            nav(aria-label='Page navigation')
-              ul.pagination.justify-content-center
-                li.page-item
-                  a.page-link(href='#', aria-label='Previous')
-                    span(aria-hidden='true') &laquo;
-                    span.sr-only Previous
-                li.page-item
-                  a.page-link(href='#') 1
-                li.page-item
-                  a.page-link(href='#') 2
-                li.page-item
-                  a.page-link(href='#') 3
-                li.page-item
-                  a.page-link(href='#', aria-label='Next')
-                    span(aria-hidden='true') &raquo;
-                    span.sr-only Next
