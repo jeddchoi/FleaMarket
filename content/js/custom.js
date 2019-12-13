@@ -34,11 +34,6 @@ $(window).on('resize', function() {
     footerPosition();
 });
 
-// Item Link
-$(".card").click(function() {
-    location.href = "#";
-})
-
 // Search Toggle
 $("#search_input_box").hide();
 $("#search").on("click", function () {
