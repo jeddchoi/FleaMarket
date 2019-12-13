@@ -1,35 +1,33 @@
 extends ../layout.pug
 
 block content 
-  //- form.form.center-form(method='post')
-  //-   h2 Register User
+  //- form.form.center-form(method='post', enctype='multipart/form-data')
+  //-   h2 Add Product
   //-   .form-group
-  //-     label(for='role') Role
-  //-     select#role.input-field(name='role')
-  //-       option Buyer
-  //-       option Seller  
-  //-   .form-group
-  //-     label(for='username') Username
-  //-     input#username.input-field(name='username', type='text' value=username)
-  //-   .form-group
-  //-     label(for='password') Password
-  //-     input#password.input-field(name='password', type='password')
-  //-   .form-group
-  //-     label(for='confirmedPassword') Confirm Password
-  //-     input#confirmedPassword.input-field(name='confirmedPassword', type='password')
+  //-     label(for='description') Group
+  //-     select.input-field(name='category')
+  //-       each category in categories
+  //-         option(value=`${category._id}`)=category.name
   //-   .form-group
   //-     label(for='name') Name
-  //-     input#name.input-field(name='name', type='text' value=name)
+  //-     input#name.input-field(name='name', type='text')
   //-   .form-group
-  //-     label(for='email') Email
-  //-     input#email.input-field(name='email', type='text' value=email)
+  //-     label(for='description') Description
+  //-     textarea#description.input-field(name='description', type='text')
   //-   .form-group
-  //-     label(for='address') Address
-  //-     input#address.input-field(name='address', type='text' value=address)
+  //-     label(for='image') Image
+  //-     input#image.input-field(name='image', type='file', accept='.jpg,.jpeg,.png')
   //-   .form-group
-  //-     input.form-btn.btn(type='submit', value='Register')
+  //-     label(for='price') Price
+  //-     input#price.input-field(name='price', type='number', step="0.01" min="0")
+  //-   .form-group
+  //-     label(for='isAuction') Auction
+  //-     select#isAuction.input-field(name='isAuction')
+  //-       option true
+  //-       option false
+  //-   .form-group
+  //-     input.form-btn.btn(type='submit', value='Add')
 
-  
   .container.register
     .card.not-product.card-register.mx-auto.my-5
       .card-header Register an Account

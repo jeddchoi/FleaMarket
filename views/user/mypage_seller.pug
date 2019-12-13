@@ -1,1 +1,64 @@
 //- registered items list, auction item list : seller 
+
+//- logout button, 
+//- purchased list, auction list : buyer
+
+extends ../layout.pug
+
+block content
+    // Contents
+    .container
+        h1.my-5 My Page
+        .row
+            // User info
+            .col.account-info-container
+                .account-info
+                    h4.mb-4 Account Info
+                    ul
+                        li
+                            p Role
+                            span=': '+user.role
+                        li
+                            p Name
+                            span=': '+user.name
+                        li
+                            p Email
+                            span=': '+user.email
+                        li
+                            p Address
+                            span=': '+user.address
+        // Purchased product list
+        .card.not-product.my-5
+            .card-header Registered Product
+            .card-body
+                .row
+                    .col-lg-4.col-md-6.mb-4
+                        .card.h-100
+                            img.card-img-top(src='http://placehold.it/700x400', alt='')
+                            .card-footer
+                                h5 Buy It Now
+                            .card-body
+                                h4.card-title Item One
+                                h5 $24.99
+                                p.card-text
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                    | numquam
+                                    | aspernatur!
+        // Auction product list
+        .card.not-product.my-5
+            .card-header Registered Auction
+            .card-body
+                .row
+                    .col-lg-4.col-md-6.mb-4
+                        .card.h-100
+                            img.card-img-top(src='http://placehold.it/700x400', alt='')
+                            .card-footer
+                                h5 Auction
+                            .card-body
+                                h4.card-title Item One
+                                h5 $24.99
+                                p.card-text
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
+                                    | numquam
+                                    | aspernatur!
+
