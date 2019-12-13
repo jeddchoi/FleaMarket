@@ -81,7 +81,6 @@ a.card {
 
 .not-pointer, .not-product {
     cursor: default;
-    pointer-events: visible;
 }
 
 .card-img-top {
