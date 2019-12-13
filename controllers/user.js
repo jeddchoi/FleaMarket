@@ -21,26 +21,6 @@ module.exports.index = (req, res) => {
   }
 }
 
-module.exports.wishlistGet = (req, res) => {
-  User.findById(req.user._id).populate('wishlist').then((user)=> {
-    if (!user) {
-      res.redirect(`/?error=${encodeURIComponent('User was not found!')}`)
-      return
-    }
-    let data = {
-      products: user.wishlist
-    }
-    res.render('wishlist/index', data)
-  })
-}
-
-module.exports.wishlistPost = (req, res) => {
-  let productId = req.params.id
-  req.user.wishlist.push(productId)
-  req.user.save().then(()=> {
-    res.redirect('/wishlist')
-  })
-}
 
 module.exports.registerGet = (req, res) => {
   res.render('user/register')
@@ -78,6 +58,28 @@ module.exports.registerPost = (req, res) => {
   })
 }
 
+module.exports.wishlistGet = (req, res) => {
+  User.findById(req.user._id).populate('wishlist').then((user) => {
+    if (!user) {
+      res.redirect(`/?error=${encodeURIComponent('User was not found!')}`)
+      return
+    }
+    let data = {
+      products: user.wishlist
+    }
+    res.render('wishlist/index', data)
+  })
+}
+
+module.exports.wishlistPost = (req, res) => {
+  let productId = req.params.id
+  req.user.wishlist.push(productId)
+  req.user.save().then(() => {
+    res.redirect('/wishlist')
+  })
+}
+
+
 module.exports.loginGet = (req, res) => {
   res.render('user/login')
 }
@@ -107,25 +109,67 @@ module.exports.logout = (req, res) => {
 
 
 module.exports.getUsers = (req, res) => {
-  res.render('member/index')
+  
+  User.find().populate('boughtProducts').populate('createdProducts').populate('bidProducts').then((users) => {
+    res.render('member/index', {users:users})
+  })
 }
 
 module.exports.detailGet = (req, res) => {
+  let userId = req.params.id
+
+  User.findById(userId).populate('boughtProducts').populate('createdProducts').populate('bidProducts').then((user) => {
+    res.render('member/detail', {
+      user: user
+    })
+  })
   res.render('member/detail')
 }
 
 module.exports.editGet = (req, res) => {
-  res.render('member/edit')
+  let userId = req.params.id
+  User.findById(userId).then(user => {
+    if (!user) {
+      res.sendStatus(404)
+      return
+    }
+
+    if (req.user.role.equals('Admin')) {
+      res.render('member/edit', {user: user})
+    } else {
+      res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
+    }
+  })
 }
 
 module.exports.editPost = (req, res) => {
-  res.render('member/index')
-}
+  let userId = req.params.id
+  let editedUser = req.body
 
-module.exports.deleteGet = (req, res) => {
-  res.render('member')
+  User.findById(userId).then((user) => {
+    if (!user) {
+      res.redirect(`/?error=${encodeURIComponent('You cannot edit this product')}`)
+      return
+    }
+
+    if (req.user.role.equals('Admin')) {
+      user.username = editedUser.username
+      user.name = editedUser.name
+      user.email = editedUser.email
+      user.address = editedUser.address
+      res.redirect('/member')
+    } else {
+      res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
+    }
+  })
 }
 
 module.exports.deletePost = (req, res) => {
-  res.render('member')
+  let userId = req.params.id
+
+  if (req.user.role.equals('Admin')) {
+    User.findByIdAndRemove(userId).then(() => {
+      res.redirect('/member')
+    })
+  }
 }

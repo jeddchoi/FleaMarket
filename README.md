@@ -46,3 +46,165 @@ Window OS를 기준으로 합니다.
 
 4. 
 
+
+
+
+
+## Database
+
+### User
+
+```json
+{
+  role: {
+    type: mongoose.Schema.Types.String,
+    enum: {
+      values: ['Buyer', 'Seller', 'Admin'],
+      message: 'Role should be either "Buyer" or "Seller".'
+    }
+  },
+  username: {
+    type: mongoose.Schema.Types.String,
+    required: propertyIsRequired.replace('{0}', 'Username'),
+    unique: true
+  },
+  password: {
+    type: mongoose.Schema.Types.String,
+    required: propertyIsRequired.replace('{0}', 'Password')
+  },
+  name: {
+    type: mongoose.Schema.Types.String,
+    required: propertyIsRequired.replace('{0}', 'Name')
+  },
+  email: {
+    type: mongoose.Schema.Types.String,
+    required: propertyIsRequired.replace('{0}', 'Email')
+  },
+  address: {
+    type: mongoose.Schema.Types.String,
+    required: propertyIsRequired.replace('{0}', 'Address')
+  },
+  boughtProducts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }],
+  createdProducts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }],
+  bidProducts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }],
+  wishlist: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }],
+  salt: {
+    type: mongoose.Schema.Types.String,
+    required: true
+  }
+}
+```
+
+
+
+### Product
+
+```json
+{
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    red: 'Category'
+  },
+  name: {
+    type: mongoose.Schema.Types.String
+  },
+  description: {
+    type: mongoose.Schema.Types.String
+  },
+  image: {
+    type: mongoose.Schema.Types.String
+  },
+  price: {
+    type: mongoose.Schema.Types.Number,
+    min: 0,
+    max: Number.MAX_VALUE,
+    default: 0
+  },
+  uploadTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  },
+  isAuction: {
+    type: mongoose.Schema.Types.Boolean,
+    default: false
+  },
+  status: {
+    type: mongoose.Schema.Types.String,
+    enum: {
+      values: ['None', 'Registered', 'InProgress', 'Completed']
+    }
+  },
+  priceHistory: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Transaction'
+  }],
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
+}
+```
+
+
+
+### Category
+
+```json
+{
+  name: {
+    type: mongoose.Schema.Types.String,
+    unique: true
+  },
+  products: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  }]
+}
+```
+
+
+
+### Transaction
+
+```json
+{
+  type: {
+        type: mongoose.Schema.Types.String,
+        enum: {
+            values: ['Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw', 'CancelDraw', 'ConfirmSale', 'ConfirmPurchase']
+        }
+    },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product'
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  price: {
+    type: mongoose.Schema.Types.Number
+  },    
+  executedTime: {
+    type: mongoose.Schema.Types.Date,
+    default: Date.now
+  }
+}
+```
+
+
+
+
+

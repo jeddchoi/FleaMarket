@@ -6,7 +6,7 @@ const Transaction = require('../models/Transaction')
 
 module.exports.index = (req, res) => {
   Product.find({
-    buyer: null
+    status: "Registered"
   }).populate('category').then((products) => {
     let data = {
       products: products
@@ -31,103 +31,117 @@ module.exports.detailGet = (req, res) => {
   })
 }
 
-module.exports.purchasePost = (req, res) => {
-  let productId = req.params.id
-  
-  Transaction.create({
-    product: productId,
-    type: "Purchase",
-    user: req.user._id
-  })
-  
 
+// BUYER
+module.exports.purchasePost = (req, res) => {
+  let productId = req.body.pid
+  
   Product.findById(productId).then(product => {
     if (product.status != "Registered") {
-      let error = `error=${encodeURIComponent('Product was already bought')}`
+      let error = `error=${encodeURIComponent('You cannot buy')}`
       res.redirect(`/?${error}`)
       return
     }
-
     product.status = "InProgress"
     product.save().then(() => {
       req.user.boughtProducts.push(productId)
       req.user.save().then(() => {
-        res.redirect('/')
+        res.redirect('/user')
       })
+    })
+
+    Transaction.create({
+      type: "Purchase",
+      product: productId,
+      user: req.user._id,
+      price: product.price
     })
   })
 }
 
 module.exports.cancelPurchasePost = (req, res) => {
-  let productId = req.params.id
-
-  Transaction.create({
-    product: productId,
-    type: "CancelPurchase",
-    user: req.user._id
-  })
-
+  let productId = req.body.pid
   
   Product.findById(productId).then(product => {
-    if (product.status != "Registered") {
-      let error = `error=${encodeURIComponent('Product was already bought')}`
+    if (product.status != "InProgress") {
+      let error = `error=${encodeURIComponent('You cannot cancel purchase')}`
       res.redirect(`/?${error}`)
       return
     }
 
-    product.status = "InProgress"
+    product.status = "Registered"
     product.save().then(() => {
-      req.user.boughtProducts.push(productId)
+      req.user.boughtProducts.findByIdAndRemove(productId)
       req.user.save().then(() => {
-        res.redirect('/')
+        res.redirect('/user')
       })
     })
+
+    Transaction.create({
+      type: "CancelPurchase",
+      product: productId,
+      user: req.user._id,
+      price: product.price
+    })
   })
-
-}
-
-module.exports.confirmSalePost = (req, res) => {
 
 }
 
 module.exports.bidPost = (req, res) => {
-  let productId = req.params.id
-
-  Transaction.create({
-    product: productId,
-    type: "Bid",
-    user: req.user._id
-  })
+  let productId = req.body.pid
+  let price = req.body.bid_price
 
   Product.findById(productId).then(product => {
-    if (product.buyer) {
-      let error = `error=${encodeURIComponent('Product was already bought')}`
+    if (product.status == "None" || product.status == "Completed") {
+      let error = `error=${encodeURIComponent('You cannot bid')}`
       res.redirect(`/?${error}`)
       return
     }
-
-    product.buyer = req.user._id
-    product.save().then(() => {
-      req.user.boughtProducts.push(productId)
-      req.user.save().then(() => {
-        res.redirect('/')
+    Transaction.create({
+      type: "Bid",
+      product: productId,
+      user: req.user._id,
+      price: price
+    }).then((transaction) => {
+      product.price = price
+      product.price_history.push(transaction._id)  
+      product.save().then(() => {
+        req.user.bidProducts.push(productId)
+        req.user.save().then(() => {
+          res.redirect('/product/' + productId)
+        })
       })
     })
   })
 }
 
-module.exports.drawPost = (req, res) => {
-
-}
-
-module.exports.cancelDrawPost = (req, res) => {
-
-}
-
 module.exports.confirmPurchasePost = (req, res) => {
+  let productId = req.body.pid
 
+  Product.findById(productId).then(product => {
+    if (product.status != "InProgress") {
+      let error = `error=${encodeURIComponent('You cannot confirm purchase')}`
+      res.redirect(`/?${error}`)
+      return
+    }
+    product.status = "Completed"
+    product.save().then(() => {
+      req.user.boughtProducts.push(productId)
+      req.user.save().then(() => {
+        res.redirect('/user')
+      })
+    })
+    Transaction.create({
+      type: "ConfirmPurchase",
+      product: productId,
+      user: req.user._id,
+      price: product.price
+    })
+  })
 }
 
+
+// SELLER
 module.exports.registerGet = (req, res) => {
   Category.find().then((categories) => {
     res.render('product/register', {categories: categories})
@@ -140,25 +154,59 @@ module.exports.registerPost = (req, res) => {
   productObj.status = 'Registered'
   productObj.seller = req.user._id
 
-
-  Transaction.create({
-    product: productObj._id,
-    type: "Register",
-    user: req.user._id
-  })
   
   Product.create(productObj).then((product) => {
     Category.findById(product.category).then((category) => {
       category.products.push(product._id)
       category.save()
     })
-    res.redirect('/')
+    
+
+    req.user.createdProducts.push(product._id)
+    req.user.save()
+
+    Transaction.create({
+      type: "Register",
+      product: product._id,
+      user: req.user._id,
+      price: product.price
+    })
+
+    res.redirect('/product/' + product._id)
   })
 
 }
 
 module.exports.unregisterPost = (req, res) => {
-  res.redirect('/')
+  let productId = req.body.pid
+
+  Product.findById(productId).then((product) => {
+    if (!product || !product.status.equals("Registered")) {
+      res.redirect(`/?error=${encodeURIComponent('You cannot unregister the product')}`)
+      return
+    }
+
+    if (product.seller.equals(req.user._id) &&req.user.role.equals('Seller')) {
+      Category.findById(product.category).then((category) => {
+        let index = category.products.indexOf(id)
+        if (index >= 0) {
+          category.products.splice(index, 1)
+        }
+
+        category.save()
+
+        Product.remove({
+          _id: id
+        }).then(() => {
+          fs.unlink(path.normalize(path.join('.', product.image)), () => {
+            res.redirect(`/?error=${encodeURIComponent('Product was deleted successfully')}`)
+          })
+        })
+      })
+    } else {
+      res.redirect(`/?error=${encodeURIComponent('You cannot delete this product!')}`)
+    }
+  })
 }
 
 module.exports.editGet = (req, res) => {
@@ -169,8 +217,8 @@ module.exports.editGet = (req, res) => {
       return
     }
 
-    if (product.creator.equals(req.user._id) ||
-    req.user.role.indexOf('Admin') >= 0) {
+    if (product.seller.equals(req.user._id) &&
+    req.user.role.equals('Seller')) {
       Category.find().then((categories) => {
         res.render('product/edit', {
           product: product,
@@ -189,24 +237,28 @@ module.exports.editPost = (req, res) => {
 
   Product.findById(id).then((product) => {
     if (!product) {
-      res.redirect(`/?error=${encodeURIComponent('Product was not found!')}`)
+      res.redirect(`/?error=${encodeURIComponent('You cannot edit this product')}`)
       return
     }
 
-    if (product.creator.equals(req.user._id) ||
-    req.user.role.indexOf('Admin') >= 0) {
+    if (product.seller.equals(req.user._id) &&
+      req.user.role.equals('Seller')) {
       product.name = editedProduct.name
       product.description = editedProduct.description
       product.price = editedProduct.description
+      
 
       if (req.file) {
         product.image = '\\' + req.file.path
       }
 
+      if (product.isAuction != editedProduct.isAuction) {
+        res.redirect(`/?error=${encodeURIComponent('You cannot change to auction or vice versa')}`)
+      }
       if (product.category.toString() !== editedProduct.category) {
         Category.findById(product.category).then(
           (currentCategory) => {
-            Category.findById(editedProduct.categories).then((nextCategory) => {
+            Category.findById(editedProduct.category).then((nextCategory) => {
               let index = currentCategory.products.indexOf(product._id)
               if (index >= 0) {
                 currentCategory.products.splice(index, 1)
@@ -226,55 +278,80 @@ module.exports.editPost = (req, res) => {
           res.redirect('/?success' + encodeURIComponent('Product was edited successfully'))
         })
       }
+
     } else {
       res.redirect(`/?error=${encodeURIComponent('You cannot edit this product!')}`)
     }
   })
 }
 
-module.exports.deleteGet = (req, res) => {
-  let id = req.params.id
-  Product.findById(id).then(product => {
-    if (!product) {
-      res.sendStatus(404)
+module.exports.confirmSalePost = (req, res) => {
+  let productId = req.body.pid
+
+  Product.findById(productId).then(product => {
+    if (product.status != "InProgress") {
+      let error = `error=${encodeURIComponent('You cannot confirm sale')}`
+      res.redirect(`/?${error}`)
       return
     }
-
-    if (product.creator.equals(req.user._id) || req.user.role.indexOf('Admin') >= 0) {
-      res.render('product/delete', {product: product})
-    } else {
-      res.redirect(`/?error=${encodeURIComponent('You cannot delete this product!')}`)
-    }
+    product.status = "Completed"
+    product.save().then(() => {
+      res.redirect('/user')
+    })
+    Transaction.create({
+      type: "ConfirmSale",
+      product: productId,
+      user: req.user._id,
+      price: product.price
+    })
   })
 }
 
-module.exports.deletePost = (req, res) => {
-  let id = req.params.id
+module.exports.drawPost = (req, res) => {
+  let productId = req.body.pid
 
-  Product.findById(id).then((product) => {
-    if (!product) {
-      res.redirect(`/?error=${encodeURIComponent('Product was not found!')}`)
+  Product.findById(productId).then(product => {
+    if (product.status != "Registered") {
+      let error = `error=${encodeURIComponent('You cannot draw')}`
+      res.redirect(`/?${error}`)
+      return
+    }
+    product.status = "InProgress"
+    product.save().then(() => {
+      res.redirect('/user')
+    })
+
+    Transaction.create({
+      type: "Draw",
+      product: productId,
+      user: req.user._id,
+      price: product.price
+    })
+  })
+}
+
+module.exports.cancelDrawPost = (req, res) => {
+  let productId = req.body.pid
+
+  Product.findById(productId).then(product => {
+    if (product.status != "InProgress") {
+      let error = `error=${encodeURIComponent('You cannot cancel draw')}`
+      res.redirect(`/?${error}`)
       return
     }
 
-    if (product.creator.equals(req.user._id) || req.user.role.indexOf('Admin') >= 0) {
-      Category.findById(product.category).then((category) => {
-        let index = category.products.indexOf(id)
-        if (index >= 0) {
-          category.products.splice(index, 1)
-        }
+    product.status = "Registered"
+    product.save().then(() => {
+      res.redirect('/user')
+    })
 
-        category.save()
-
-        Product.remove({_id: id}).then(() => {
-          fs.unlink(path.normalize(path.join('.', product.image)), () => {
-            res.redirect(`/?error=${encodeURIComponent('Product was deleted successfully')}`)
-          })
-        })
-      })
-    } else {
-      res.redirect(`/?error=${encodeURIComponent('You cannot delete this product!')}`)
-    }
+    Transaction.create({
+      type: "CancelDraw",
+      product: productId,
+      user: req.user._id,
+      price: product.price
+    })
   })
+
 }
 

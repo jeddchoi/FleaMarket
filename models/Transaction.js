@@ -15,12 +15,12 @@ let transactionSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    price: {
+        type: mongoose.Schema.Types.Number
+    },
     executedTime: {
         type: mongoose.Schema.Types.Date,
         default: Date.now
-    },
-    price: {
-        type: mongoose.Schema.Types.Number
     }
 })
 
