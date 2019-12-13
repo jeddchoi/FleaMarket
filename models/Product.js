@@ -31,7 +31,7 @@ let productSchema = mongoose.Schema({
   status: {
     type: mongoose.Schema.Types.String,
     enum: {
-      values: ['None', 'Registered', 'InProgress', 'Completed']
+      values: ['None', 'Registered', 'Completed']
     }
   },
   priceHistory: [{

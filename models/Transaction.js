@@ -4,7 +4,7 @@ let transactionSchema = mongoose.Schema({
     type: {
         type: mongoose.Schema.Types.String,
         enum: {
-            values: ['Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw', 'CancelDraw', 'ConfirmSale', 'ConfirmPurchase']
+            values: ['Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw', 'CancelDraw']
         }
     },
     product: {

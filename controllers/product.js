@@ -24,7 +24,7 @@ module.exports.index = (req, res) => {
 module.exports.detailGet = (req, res) => {
   let productId = req.params.id
   
-  Product.findById(productId).populate('seller category').then(product => {
+  Product.findById(productId).populate('seller category priceHistory').then(product => {
     if (!product) {
       res.sendStatus(404)
       return
@@ -32,8 +32,7 @@ module.exports.detailGet = (req, res) => {
 
     User.findById(req.user).then((user)=>{
       res.render('product/detail', {
-        product: product,
-        me:user
+        product: product
       })
     })
     
@@ -51,7 +50,7 @@ module.exports.purchasePost = (req, res) => {
       res.redirect(`/?${error}`)
       return
     }
-    product.status = "InProgress"
+    product.status = "Completed"
     product.save().then(() => {
       req.user.boughtProducts.push(productId)
       req.user.save().then(() => {
@@ -72,7 +71,7 @@ module.exports.cancelPurchasePost = (req, res) => {
   let productId = req.body.pid
   
   Product.findById(productId).then(product => {
-    if (product.status != "InProgress") {
+    if (product.status != "Completed") {
       let error = `error=${encodeURIComponent('You cannot cancel purchase')}`
       res.redirect(`/?${error}`)
       return
@@ -101,7 +100,7 @@ module.exports.bidPost = (req, res) => {
   let price = req.body.bid_price
 
   Product.findById(productId).then(product => {
-    if (product.status == "None" || product.status == "Completed") {
+    if (product.status != "Registered") {
       let error = `error=${encodeURIComponent('You cannot bid')}`
       res.redirect(`/?${error}`)
       return
@@ -120,31 +119,6 @@ module.exports.bidPost = (req, res) => {
           res.redirect('/product/' + productId)
         })
       })
-    })
-  })
-}
-
-module.exports.confirmPurchasePost = (req, res) => {
-  let productId = req.body.pid
-
-  Product.findById(productId).then(product => {
-    if (product.status != "InProgress") {
-      let error = `error=${encodeURIComponent('You cannot confirm purchase')}`
-      res.redirect(`/?${error}`)
-      return
-    }
-    product.status = "Completed"
-    product.save().then(() => {
-      req.user.boughtProducts.push(productId)
-      req.user.save().then(() => {
-        res.redirect('/user')
-      })
-    })
-    Transaction.create({
-      type: "ConfirmPurchase",
-      product: productId,
-      user: req.user._id,
-      price: product.price
     })
   })
 }
@@ -298,27 +272,6 @@ module.exports.editPost = (req, res) => {
   })
 }
 
-module.exports.confirmSalePost = (req, res) => {
-  let productId = req.body.pid
-
-  Product.findById(productId).then(product => {
-    if (product.status != "InProgress") {
-      let error = `error=${encodeURIComponent('You cannot confirm sale')}`
-      res.redirect(`/?${error}`)
-      return
-    }
-    product.status = "Completed"
-    product.save().then(() => {
-      res.redirect('/user')
-    })
-    Transaction.create({
-      type: "ConfirmSale",
-      product: productId,
-      user: req.user._id,
-      price: product.price
-    })
-  })
-}
 
 module.exports.drawPost = (req, res) => {
   let productId = req.body.pid
@@ -329,7 +282,7 @@ module.exports.drawPost = (req, res) => {
       res.redirect(`/?${error}`)
       return
     }
-    product.status = "InProgress"
+    product.status = "Completed"
     product.save().then(() => {
       res.redirect('/user')
     })
@@ -347,7 +300,7 @@ module.exports.cancelDrawPost = (req, res) => {
   let productId = req.body.pid
 
   Product.findById(productId).then(product => {
-    if (product.status != "InProgress") {
+    if (product.status != "Completed") {
       let error = `error=${encodeURIComponent('You cannot cancel draw')}`
       res.redirect(`/?${error}`)
       return

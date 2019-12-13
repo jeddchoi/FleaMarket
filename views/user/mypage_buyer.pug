@@ -15,22 +15,22 @@ block content
                     ul
                         li
                             p Role
-                            span=': '+me.role
+                            span=': '+user.role
                         li
                             p Name
-                            span=': '+me.name
+                            span=': '+user.name
                         li
                             p Email
-                            span=': '+me.email
+                            span=': '+user.email
                         li
                             p Address
-                            span=': '+me.address
+                            span=': '+user.address
         // Purchased product list
         .card.not-product.my-5
             .card-header Purchased
             .card-body
                 .row
-                    each product in me.boughtProducts
+                    each product in user.boughtProducts
                         .col-lg-4.col-md-6.mb-4
                             a.card.h-100(href="/product/" + product._id)
                                 img.card-img-top(src=`${product.image}`, alt='')
@@ -48,7 +48,7 @@ block content
             .card-header Auction
             .card-body
                 .row
-                    each product in me.bidProducts
+                    each product in user.bidProducts
                         .col-lg-4.col-md-6.mb-4
                             a.card.h-100(href="/product/" + product._id)
                                 img.card-img-top(src=`${product.image}`, alt='')

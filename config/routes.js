@@ -28,8 +28,7 @@ module.exports = (app) => {
   app.post('/product/purchase', auth.isInRole(['Buyer']), controllers.product.purchasePost)
   // when buyer submit to cancel purchase in normal purchase
   app.post('/product/cancel_purchase', auth.isInRole(['Buyer']), controllers.product.cancelPurchasePost)
-  // when seller submit to confirm sale in normal purchase
-  app.post('/product/confirm_sale', auth.isInRole(['Seller']), controllers.product.confirmSalePost)
+  
 
   // ------ auction ------
   // when buyer submit to bid by buyer
@@ -38,8 +37,7 @@ module.exports = (app) => {
   app.post('/product/draw', auth.isInRole(['Seller']), controllers.product.drawPost)
   // when seller submit to cancel to draw auction
   app.post('/product/cancel_draw', auth.isInRole(['Seller']), controllers.product.cancelDrawPost)
-  // when buyer submit to confirm auction 
-  app.post('/product/confirm_purchase', auth.isInRole(['Buyer']), controllers.product.confirmPurchasePost)
+  
 
   
   // detail web page

@@ -6,7 +6,7 @@ module.exports.index = (req, res) => {
     switch (req.user.role) {
       case 'Buyer':
         User.findById(req.user._id).populate('boughtProducts').populate('bidProducts').then((user)=> {
-          res.render('user/mypage_buyer', {me:user})
+          res.render('user/mypage_buyer', {user:user})
         })
         break
 
