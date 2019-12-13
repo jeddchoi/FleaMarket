@@ -21,12 +21,14 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.detailGet = (req, res) => {
-  let id = req.params.id
-  Product.findById(id).populate('category').populate('seller').then(product => {
+  let productId = req.params.id
+  
+  Product.findById(productId).populate('seller category').then(product => {
     if (!product) {
       res.sendStatus(404)
       return
     }
+    console.log(product)
     res.render('product/detail', {product:product})
   })
 }
