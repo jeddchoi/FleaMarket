@@ -18,3 +18,12 @@ module.exports.index = (req, res) => {
     res.render('home/index', data)
   })
 }
+
+module.exports.search = (req, res) => {
+  let queryData = req.query
+
+  Product.find().then((products) => {
+
+    res.render('home/search', {products : products})
+  })
+}

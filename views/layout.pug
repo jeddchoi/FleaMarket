@@ -46,17 +46,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       img(src='/content/img/logo2.png', alt='Logo')
     ul#nav_fixed_icon.navbar-nav.flex-row.d-md-flex.order-2
       li.nav-item
-        a#search.nav-link(href='#')
+        a#search.nav-link(href='/search')
           i.fas.fa-search
       li.nav-item
         a.nav-link(href='/user')
           i.fas.fa-user
-#search_input_box.search_input
-  .container
-    form.d-flex.justify-content-between.search-inner
-      input#search_input.form-control(type='text', placeholder='Search Here')
-      button.btn(type='submit')
-      span#close_search.ti-close(title='Close Search')
+      
 //
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#alertModal">
   Launch modal

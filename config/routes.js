@@ -8,6 +8,7 @@ module.exports = (app) => {
   // main page
   app.get('/', controllers.home.index)
 
+  app.get('/search', controllers.home.search)
   // all products
   app.get('/product', controllers.product.index)
   

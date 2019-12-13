@@ -77,10 +77,18 @@ module.exports.wishlistGet = (req, res) => {
 
 module.exports.wishlistPost = (req, res) => {
   let productId = req.body.pid
-  req.user.wishlist.push(productId)
-  req.user.save().then(() => {
-    res.redirect('/wishlist')
+
+  User.findById(req.user._id).then((user) => {
+    if (!user.wishlist.includes(productId)) {
+      req.user.wishlist.push(productId)
+      req.user.save().then(() => {
+        res.redirect('/wishlist')
+      })
+    } else {
+      res.redirect('/wishlist')
+    }
   })
+  
 }
 
 

@@ -1,7 +1,7 @@
 const Transaction = require('../models/Transaction')
 
 module.exports.index = (req, res) => {
-    Transaction.find().populate('product').populate('user').then((transactions) => {
+    Transaction.find().populate('product user').then((transactions) => {
         let data = {
             transactions: transactions
         }

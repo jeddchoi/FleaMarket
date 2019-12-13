@@ -3,6 +3,7 @@ const path = require('path')
 const Product = require('../models/Product')
 const Category = require('../models/Category')
 const Transaction = require('../models/Transaction')
+const User = require('../models/User')
 
 module.exports.index = (req, res) => {
   Product.find({
@@ -28,7 +29,14 @@ module.exports.detailGet = (req, res) => {
       res.sendStatus(404)
       return
     }
-    res.render('product/detail', {product:product})
+
+    User.findById(req.user).then((user)=>{
+      res.render('product/detail', {
+        product: product,
+        me:user
+      })
+    })
+    
   })
 }
 
@@ -105,7 +113,7 @@ module.exports.bidPost = (req, res) => {
       price: price
     }).then((transaction) => {
       product.price = price
-      product.price_history.push(transaction._id)  
+      product.priceHistory.push(transaction._id)
       product.save().then(() => {
         req.user.bidProducts.push(productId)
         req.user.save().then(() => {
@@ -154,7 +162,11 @@ module.exports.registerPost = (req, res) => {
   productObj.image = '\\' + req.file.path
   productObj.status = 'Registered'
   productObj.seller = req.user._id
-
+  if (!req.body.price) {
+    productObj.price = 0
+  } else
+    productObj.price = req.body.price
+  
   
   Product.create(productObj).then((product) => {
     Category.findById(product.category).then((category) => {
