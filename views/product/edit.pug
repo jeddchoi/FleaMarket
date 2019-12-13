@@ -1,0 +1,55 @@
+extends ../layout.pug
+
+block content
+  .container
+    h1.my-5 Add Product
+    .card.not-product.card-register.mx-auto.my-5
+      //- .card-header
+      .card-body
+        form.form.center-form(method='post', enctype='multipart/form-data')
+          .form-group
+            .form-row
+              .col-md-6
+                .form-label-group
+                    select#category.input-field.form-control(name='category')
+                    each category in categories
+                        if category.name == product.category.name
+                            option(value=`${category._id}`, selected="selected")=category.name
+                        else
+                            option(value=`${category._id}`)=category.name
+                    label(for='category') Category
+              .col-md-6
+                .form-label-group
+                  select#isAuction.input-field.form-control(name='isAuction')
+                    if product.isAuction
+                        option true
+                        option false
+                    else
+                        option false
+                        option true
+                  label(for='isAuction') Auction
+          .form-group
+            .form-row
+              .col-md-6
+                .form-label-group
+                  input#name.form-control(name='name', type='text', placeholder='Name', autofocus='autofocus', value=product.name)
+                  label(for='name') Name
+              .col-md-6
+                .form-label-group
+                  input#price.form-control(name='price', type='number', placeholder='Price', autofocus='autofocus', value=product.price)
+                  label(for='price') Price
+          .form-group
+            .form-label-group
+              input#description.form-control(name='description', type='text', placeholder='Description', value=product.description)
+              label(for='description') Description
+          .form-group
+            .form-row
+              .col-md-6
+                .input-group.input-file(name='image')
+                  span.input-group-btn
+                    button.btn.btn-light.mr-2.btn-choose(type='button') Upload Image
+                  input#image.mr-2.file-upload.form-control(type='text', placeholder='Choose a file...')
+                  span.input-group-btn
+                    button.btn.btn-dark.btn-reset(type='button') Reset
+          .form-group
+            input.btn.btn-light.btn-block.form-btn(type='submit', value='Register')

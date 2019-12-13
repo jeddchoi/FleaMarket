@@ -54,6 +54,8 @@ block content
                     each product in me.bidProducts
                         .col-lg-4.col-md-6.mb-4
                             a.card.h-100(href="/product/" + product._id)
+                                .card-header
+                                    h5=product.status
                                 img.card-img-top(src=`${product.image}`, alt='')
                                 .card-footer
                                     if product.isAuction

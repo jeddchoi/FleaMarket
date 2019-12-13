@@ -88,7 +88,7 @@ a.card {
     object-fit: cover;
 }
 
-.card-footer h5 {
+.card-footer h5, .card-header h5 {
     margin-bottom: 0;
 }
 

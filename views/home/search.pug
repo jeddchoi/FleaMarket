@@ -4,23 +4,25 @@ block content
     .container
         .row
             .col-lg-3
-            h1.my-5 Search
-            h3.my-3.pt-3.search-label Product Name
-            input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-            .my-3
-                form.form-inline
-                    input.form-control(type='text', placeholder='Product Name', aria-label='Product Name')
-            h3.my-3.pt-3.search-label Seller Name
-            input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-            .my-3
-                form.form-inline
-                    input.form-control(type='text', placeholder='Seller Name', aria-label='Seller Name')
-            h3.my-3.pt-3.search-label Price
-            input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-            .my-3
-                form.form-inline
-                    input.form-control(type='text', placeholder='Price', aria-label='Price')
-            // /.col-lg-3
+                h1.my-5 Search
+                h3.pt-3.search-label Product Name
+                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
+                .my-3
+                    form.form-inline
+                        input.form-control(type='text', placeholder='Product Name', aria-label='Product Name')
+                h3.pt-3.search-label Seller Name
+                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
+                .my-3
+                    form.form-inline
+                        input.form-control(type='text', placeholder='Seller Name', aria-label='Seller Name')
+                h3.pt-3.search-label Price
+                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
+                .my-3
+                    form.form-inline
+                        input.form-control(type='text', placeholder='Price', aria-label='Price')
+                .my-4
+                    form.mb-2(action="", method="post")
+                        input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Search')
             .col-lg-9.my-5
                 .row
                     each product in products

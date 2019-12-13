@@ -10,10 +10,11 @@ block content
           .form-group
             .form-row
               .col-md-6
-                select#category.input-field.form-control(name='category')
-                  each category in categories
-                    option(value=`${category._id}`)=category.name
-                label(for='category') Category
+                .form-label-group
+                  select#category.input-field.form-control(name='category')
+                    each category in categories
+                      option(value=`${category._id}`)=category.name
+                  label(for='category') Category
               .col-md-6
                 .form-label-group
                   select#isAuction.input-field.form-control(name='isAuction')
