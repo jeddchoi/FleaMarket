@@ -10,7 +10,7 @@ block content
           .form-group
             .form-row
               .col-md-6
-                select.input-field.form-control(name='category')
+                select#category.input-field.form-control(name='category')
                   each category in categories
                     option(value=`${category._id}`)=category.name
                 label(for='category') Category
