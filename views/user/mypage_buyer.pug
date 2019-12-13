@@ -12,7 +12,7 @@ block content
             .col.account-info-container
                 .account-info
                     h4.mb-4 Account Info
-                    ul
+                    ul.mb-4
                         li
                             p Role
                             span=': '+user.role
@@ -25,6 +25,9 @@ block content
                         li
                             p Address
                             span=': '+user.address
+                    h4 Total Amount
+                    //- total shopping list amount calculation position
+                    h2 
         // Purchased product list
         .card.not-product.my-5
             .card-header Purchased
@@ -51,6 +54,8 @@ block content
                     each product in user.bidProducts
                         .col-lg-4.col-md-6.mb-4
                             a.card.h-100(href="/product/" + product._id)
+                                .card-header
+                                    h5=product.status
                                 img.card-img-top(src=`${product.image}`, alt='')
                                 .card-footer
                                     if product.isAuction

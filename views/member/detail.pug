@@ -1,0 +1,24 @@
+extends ../layout.pug
+
+block content
+    // Contents
+    .container
+        h1.my-5 My Page
+        .row
+            // User info
+            .col.account-info-container
+                .account-info
+                    h4.mb-4 Account Info
+                    ul
+                        li
+                            p Role
+                            span=': '+user.role
+                        li
+                            p Name
+                            span=': '+user.name
+                        li
+                            p Email
+                            span=': '+user.email
+                        li
+                            p Address
+                            span=': '+user.address

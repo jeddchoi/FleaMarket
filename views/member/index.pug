@@ -1,0 +1,39 @@
+extends ../layout.pug
+
+block content
+    .container
+        h1.my-5 Member
+        .card.not-pointer
+            .card-header
+                i.fas.fa-table
+                span.ml-2 Member
+            .card-body
+                .table-responsive
+                    table#log.table.table-bordered(width='100%', cellspacing='0')
+                        thead
+                            tr
+                                th(style='width:20%;') Name
+                                th(style='width:20%;') Role
+                                th(style='width:20%;') Email
+                                th(style='width:20%;') Address
+                                th(style='width:20%;')
+                        tfoot
+                            tr
+                                th Name
+                                th Role
+                                th Email
+                                th Address
+                                th
+                        tbody
+                            each user in users
+                                if !(user.name == "administrator")
+                                    tr
+                                        td=user.name
+                                        td=user.role
+                                        td=user.email
+                                        td=user.address
+                                        td
+                                            form(style="float: left; width: 47%" action="/member/"+user._id+"/edit", method="get")
+                                                input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Edit')
+                                            form(style="float: right; width: 47%" action="/member/"+user._id+"/delete", method="post")
+                                                input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Delete')
