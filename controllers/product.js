@@ -7,7 +7,7 @@ const Transaction = require('../models/Transaction')
 module.exports.index = (req, res) => {
   Product.find({
     status: "Registered"
-  }).populate('category').then((products) => {
+  }).populate('category').sort({uploadTime:-1}).then((products) => {
     let data = {
       products: products
     }
@@ -161,7 +161,7 @@ module.exports.registerPost = (req, res) => {
       category.products.push(product._id)
       category.save()
     })
-    
+    console.log(product)
 
     req.user.createdProducts.push(product._id)
     req.user.save()
