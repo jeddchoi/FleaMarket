@@ -78,7 +78,7 @@ module.exports.wishlistGet = (req, res) => {
 }
 
 module.exports.wishlistPost = (req, res) => {
-  let productId = req.params.id
+  let productId = req.body.pid
   req.user.wishlist.push(productId)
   req.user.save().then(() => {
     res.redirect('/wishlist')

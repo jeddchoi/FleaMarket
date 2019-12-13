@@ -28,7 +28,6 @@ module.exports.detailGet = (req, res) => {
       res.sendStatus(404)
       return
     }
-    console.log(product)
     res.render('product/detail', {product:product})
   })
 }

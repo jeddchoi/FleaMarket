@@ -31,9 +31,13 @@ block content
                     span Upload Time
                     span=": "+product.uploadTime
             .py-2
-                input.btn.btn-light.btn-block.form-btn(type='submit', value='Add to Wishlist')
+                form(action="/wishlist", method="post")
+                    input(type='hidden', name='pid', value=`${product._id}`)
+                    input.btn.btn-light.btn-block.form-btn(type='submit', value='Add to Wishlist')
             .py-2
-                input.btn.btn-light.btn-block.form-btn(type='submit', value='Buy')
+                form(action="/product/purchase", method="post")
+                    input(type='hidden', name='pid', value=`${product._id}`)
+                    input.btn.btn-light.btn-block.form-btn(type='submit', value='Buy')
     div
         h1.my-5 Description
         p=product.description
