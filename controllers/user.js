@@ -5,11 +5,17 @@ module.exports.index = (req, res) => {
   if (req.user) {
     switch (req.user.role) {
       case 'Buyer':
-        res.render('user/mypage_buyer')
+        User.findById(req.user._id).populate('boughtProducts').populate('bidProducts').then((user)=> {
+          res.render('user/mypage_buyer', {me:user})
+        })
         break
 
       case 'Seller':
-        res.render('user/mypage_seller')
+        User.findById(req.user._id).populate('createdProducts').then((user) => {
+          res.render('user/mypage_seller', {
+            user: user
+          })
+        })
         break
 
       case 'Admin':
