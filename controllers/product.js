@@ -22,7 +22,7 @@ module.exports.index = (req, res) => {
 
 module.exports.detailGet = (req, res) => {
   let id = req.params.id
-  Product.findById(id).then(product => {
+  Product.findById(id).populate('category').populate('seller').then(product => {
     if (!product) {
       res.sendStatus(404)
       return

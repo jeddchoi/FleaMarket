@@ -3,43 +3,40 @@ extends ../layout.pug
 block content
   .container
     h1.my-5 Product Detail
-    .row
-        .col-lg-7
-            .mx-5
-                .card.h-100.not-pointer
-                    img.card-img-top(src='http://placehold.it/700x400', alt='')
-                    .card-footer
-                        if product.isAuction
+        .row
+            .col-lg-7
+                .mx-5
+                    .card.h-100.not-pointer
+                        img.card-img-top(src='http://placehold.it/700x400', alt='')
+                        .card-footer
                             h5 Auction
-                        else
-                            h5 Buy it Now
-        .col-lg-5
-            .product-text
-                h3=product.name
-                h2="₩"+product.price
-            .py-2
-                div
-                    span Category
-                    span=":"+product.category
-                div
-                    span Status
-                    span=":"+product.status
-                div
-                    span Seller
-                    span=":"+product.seller
-                div
-                    span Upload Time
-                    span=":"+product.uploadTime
-            .py-2
-                input.btn.btn-light.btn-block.form-btn(type='submit', value='Add to Wishlist')
-            .py-2
-                input.btn.btn-light.btn-block.form-btn(type='submit', value='Buy')
-        div
-            h1.my-5 Description
-            p
-                | First replenish living. Creepeth image image. Creeping can&apos;t, won&apos;t called.
-                | Two fruitful let days signs sea together all land fly subdue
-        // Only if the product is auction
-        div
-            h1.my-5 Auction History
-            p
+            .col-lg-5
+                .product-text
+                    h3 Faded SkyBlu Denim Jeans
+                    h2 $149.99
+                .py-2
+                    div
+                        span Category
+                        span : Smartphone
+                    div
+                        span Status
+                        span : Buy it Now
+                    div
+                        span Seller
+                        span : Gongmeda
+                    div
+                        span Upload Time
+                        span : 2019.12.12
+                .py-2
+                    input.btn.btn-light.btn-block.form-btn(type='submit', ,='', value='Add to Wishlist')
+                .py-2
+                    input.btn.btn-light.btn-block.form-btn(type='submit', ,='', value='Buy')
+            div
+                h1.my-5 Description
+                p
+                    | First replenish living. Creepeth image image. Creeping can&apos;t, won&apos;t called.
+                    | Two fruitful let days signs sea together all land fly subdue
+            // Only if the product is auction
+            div
+                h1.my-5 Auction History
+                p
