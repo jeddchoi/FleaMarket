@@ -28,6 +28,9 @@ block content
                     span Seller
                     span=": "+product.seller.name
                 div
+                    span Trading Place
+                    span=": "+product.seller.address
+                div
                     span Upload Time
                     span=": "+product.uploadTime
             .py-2
@@ -51,5 +54,32 @@ block content
         p=product.description
     // Only if the product is auction
     div
-        h1.my-5 Auction History
-        p
+        if product.isAuction
+            h1.my-5 Auction History
+            .card.not-pointer
+                .card-header
+                    i.fas.fa-table
+                    span.ml-2 Log
+                .card-body
+                    .table-responsive
+                        table#log.table.table-bordered(width='100%', cellspacing='0')
+                            thead
+                                tr
+                                    th(style='width:30%;') Time
+                                    th(style='width:25%;') Type
+                                    th(style='width:25%;') User
+                                    th(style='width:20%;') Price
+                            tfoot
+                                tr
+                                    th Time
+                                    th Type
+                                    th User
+                                    th Price
+                            tbody
+                                each transaction in product.priceHistory
+                                    tr
+                                        td=transaction.executedTime
+                                        td=transaction.type
+                                        td=transaction.user
+                                        td=transaction.price
+        .mb-5

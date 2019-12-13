@@ -1,0 +1,53 @@
+extends ../layout.pug
+
+block content 
+  .container.register
+    .card.not-product.card-register.mx-auto.my-5
+        .card-header Edit an Account
+        .card-body
+            form.form.center-form(method='post')
+                .form-group
+                    .form-row
+                        .col-md-6
+                            select#role.form-control(name='role')
+                                if !(user.role == "Buyer")
+                                    option Buyer
+                                    option Seller
+                                else
+                                    option Seller
+                                    option Buyer
+                            label(for='role') Role
+                .form-group
+                    .form-row
+                        .col-md-6
+                            .form-label-group
+                                input#username.form-control(name='username', type='text', autofocus='autofocus', value=user.username)
+                                label(for='username') User name
+                .form-group
+                    .form-row
+                        .col-md-6
+                            .form-label-group
+                                input#password.form-control(name='password', type='password', placeholder='Password')
+                                label(for='password') Password
+                        .col-md-6
+                            .form-label-group
+                                input#cconfirmedPassword.form-control(name='confirmedPassword', type='password', placeholder='Confirm password')
+                                label(for='confirmPassword') Confirm password
+                .form-group
+                    .form-row
+                        .col-md-6
+                            .form-label-group
+                                input#name.form-control(name='name', type='text', placeholder='Name', autofocus='autofocus', value=user.name)
+                                label(for='name') Name
+                .form-group
+                        .form-label-group
+                            input#email.form-control(name='email', type='email', placeholder='Email address', value=user.email)
+                            label(for='inputEmail') Email address
+                .form-group
+                        .form-label-group
+                            input#address.form-control(name='address', type='text', placeholder='Address', value=user.address)
+                            label(for='address') Address
+                .form-group
+                input.btn.btn-light.btn-block.form-btn(type='submit', value='Edit')
+            .text-center.a-tag
+                a.d-block.small.mt-3(href='/member') Cancel edit

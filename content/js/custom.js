@@ -93,3 +93,11 @@ function bs_input_file() {
 $(function () {
     bs_input_file();
 });
+
+// Call the dataTables jQuery plugin
+$(document).ready(function () {
+    $('#log').DataTable({
+        lengthMenu: [10, 20, 30, 40, 50],
+        info: false
+    });
+});
