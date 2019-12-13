@@ -70,10 +70,8 @@ module.exports.wishlistGet = (req, res) => {
       res.redirect(`/?error=${encodeURIComponent('User was not found!')}`)
       return
     }
-    let data = {
-      products: user.wishlist
-    }
-    res.render('wishlist/index', data)
+    
+    res.render('wishlist/index', {products : user.wishlist})
   })
 }
 
