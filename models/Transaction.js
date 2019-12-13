@@ -18,6 +18,9 @@ let transactionSchema = mongoose.Schema({
     executedTime: {
         type: mongoose.Schema.Types.Date,
         default: Date.now
+    },
+    price: {
+        type: mongoose.Schema.Types.Number
     }
 })
 
