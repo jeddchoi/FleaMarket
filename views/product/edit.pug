@@ -2,7 +2,7 @@ extends ../layout.pug
 
 block content
   .container
-    h1.my-5 Add Product
+    h1.my-5 Edit Product
     .card.not-product.card-register.mx-auto.my-5
       //- .card-header
       .card-body
@@ -48,8 +48,8 @@ block content
                 .input-group.input-file(name='image')
                   span.input-group-btn
                     button.btn.btn-light.mr-2.btn-choose(type='button') Upload Image
-                  input#image.mr-2.file-upload.form-control(type='text', placeholder='Choose a file...')
+                  input#image.mr-2.file-upload.form-control(type='text', placeholder='Choose a file...', value=`${product.image}`)
                   span.input-group-btn
                     button.btn.btn-dark.btn-reset(type='button') Reset
           .form-group
-            input.btn.btn-light.btn-block.form-btn(type='submit', value='Register')
+            input.btn.btn-light.btn-block.form-btn(type='submit', value='Edit')

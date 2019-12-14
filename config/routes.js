@@ -4,6 +4,7 @@ const auth = require('./auth')
 
 let upload = multer({dest: './content/images'})
 
+
 module.exports = (app) => {
   // main page
   app.get('/', controllers.home.index)

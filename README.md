@@ -115,7 +115,7 @@ Window OS를 기준으로 합니다.
 {
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    red: 'Category'
+    ref: 'Category'
   },
   name: {
     type: mongoose.Schema.Types.String

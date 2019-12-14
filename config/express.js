@@ -7,7 +7,7 @@ const passport = require('passport')
 
 module.exports = (app, config) => {
   app.set('view engine', 'pug')
-  app.set('views', path.join(config.rootPath, 'views'))
+  app.set('views', './views')
 
   app.use(bodyParser.urlencoded({extended: true}))
 
@@ -20,17 +20,16 @@ module.exports = (app, config) => {
     if (req.user) {
       res.locals.user = req.user
     }
-
     next()
   })
+  app.use(express.static('content'));
+  // app.use(express.static(path.normalize(path.join(config.rootPath, 'content'))))
+  
+  // app.use((req, res, next) => {
+  //   if (req.url.startsWith('/content')) {
+  //     req.url = req.url.replace('/content', '')
+  //   }
 
-  app.use(express.static(path.normalize(path.join(config.rootPath, 'content'))))
-
-  app.use((req, res, next) => {
-    if (req.url.startsWith('/content')) {
-      req.url = req.url.replace('/content', '')
-    }
-
-    next()
-  }, express.static(path.normalize(path.join(config.rootPath, 'content'))))
+  //   next()
+  // }, express.static(path.normalize(path.join(config.rootPath, 'content'))))
 }

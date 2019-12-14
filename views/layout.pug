@@ -6,14 +6,14 @@ head
   // Icon Image
   link(rel='icon', href='#')
   // Bootstrap CSS
-  link(rel='stylesheet', href='/content/css/bootstrap.min.css')
+  link(rel='stylesheet', href='/css/bootstrap.min.css')
   // Owl Carousel CSS
-  link(rel='stylesheet', href='/content/owlcarousel/owl.carousel.min.css')
-  link(rel='stylesheet', href='/content/owlcarousel/owl.theme.default.min.css')
+  link(rel='stylesheet', href='/owlcarousel/owl.carousel.min.css')
+  link(rel='stylesheet', href='/owlcarousel/owl.theme.default.min.css')
   // Data Table CSS
-  link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css')
+  link(rel='stylesheet', type='/text/css', href='https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css')
   // Custom CSS
-  link(rel='stylesheet', href='/content/css/style.css')
+  link(rel='stylesheet', href='/css/style.css')
   // Font Awesome
   script(src='https://kit.fontawesome.com/77ef208b4e.js', crossorigin='anonymous')
 // Navigation
@@ -40,12 +40,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           li.nav-item
             form#logout-form(method="post" action="/user/logout")
               a.nav-link(href='javascript:document.getElementById("logout-form").submit()') Logout
-
     .nav-margin
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav')
         span.navbar-toggler-icon
     a.navbar-brand.order-0.nav-margin(href='/')
-      img(src='/content/img/logo2.png', alt='Logo')
+      img(src='/img/logo2.png', alt='Logo')
     ul#nav_fixed_icon.navbar-nav.flex-row.d-md-flex.order-2
       li.nav-item
         a#search.nav-link(href='/search')
@@ -80,10 +79,10 @@ footer.py-5.bg-light
 // JQuery JavaScript
 script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
 // Bootstrap JavaScript
-script(src='/content/js/bootstrap.min.js')
+script(src='/js/bootstrap.min.js')
 // Owl Carousel JavaScript
-script(src='/content/owlcarousel/owl.carousel.min.js')
+script(src='/owlcarousel/owl.carousel.min.js')
 // Data Table JS
-script(type='text/javascript', src='https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js')
+script(type='/text/javascript', src='https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js')
 // Custom JavaScript
-script(src='/content/js/custom.js')
+script(src='/js/custom.js')
