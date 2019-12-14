@@ -14,10 +14,15 @@ module.exports = (app) => {
   // all products
   app.get('/product', controllers.product.index)
   
+  app.get('/category/add', auth.isInRole(['Admin']), controllers.category.addGet)
+  app.post('/category/add', auth.isInRole(['Admin']), controllers.category.addPost)
+
   // category
   app.get('/category', controllers.category.index)
   // specific category
   app.get('/category/:category', controllers.category.productByCategory)
+
+  
   // product registeration page
   app.get('/product/register', auth.isInRole(['Seller']), controllers.product.registerGet)
 

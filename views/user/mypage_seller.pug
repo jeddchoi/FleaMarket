@@ -38,8 +38,7 @@ block content
                                     a.card.h-100(href="/product/" + product._id)
                                         .card-header
                                             <i class="fas fa-star"></i>
-                                            //- wish list count position
-                                            h5.d-inline.ml-2
+                                            h5.d-inline.ml-2=product.wishCount
                                         img.card-img-top(src=`${product.image}`, alt='')
                                         .card-footer
                                             if product.isAuction
@@ -67,7 +66,7 @@ block content
                                         .card-header
                                             <i class="fas fa-star"></i>
                                             //- wish list count position
-                                            h5.d-inline.ml-2
+                                            h5.d-inline.ml-2=product.wishCount
                                         img.card-img-top(src=`${product.image}`, alt='')
                                         .card-footer
                                             if product.isAuction

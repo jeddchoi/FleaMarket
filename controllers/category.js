@@ -12,6 +12,19 @@ module.exports.index = (req, res) => {
     })
 }
 
+module.exports.addGet = (req, res) => {
+  res.render('category/add')
+}
+
+module.exports.addPost = (req, res) => {
+  let category = req.body
+  category.creator = req.user._id
+
+  Category.create(category).then(() => {
+    res.redirect('/category/add')
+  })
+}
+
 module.exports.productByCategory = (req, res) => {
   let categoryName = req.params.category
 

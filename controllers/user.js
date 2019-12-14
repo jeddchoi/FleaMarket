@@ -6,8 +6,26 @@ module.exports.index = (req, res) => {
   if (req.user) {
     switch (req.user.role) {
       case 'Buyer':
-        User.findById(req.user._id).populate('boughtProducts').populate('bidProducts').then((user)=> {
-          res.render('user/mypage_buyer', {user:user})
+        User.findById(req.user._id).populate('boughtProducts bidProducts').then((user) => {
+          
+          let totalAmount = 0
+          
+          for (let i = 0; i < user.boughtProducts.length; i++) {
+            let product = user.boughtProducts[i];
+            totalAmount += product.price
+          }
+
+          for (let i = 0; i < user.bidProducts.length; i++) {
+            let product = user.bidProducts[i];
+            if (product.status == "Completed") {
+              totalAmount += product.price
+            }
+          }
+
+          res.render('user/mypage_buyer', {
+            user: user,
+            totalAmount:totalAmount
+          })
         })
         break
 
@@ -53,7 +71,9 @@ module.exports.registerPost = (req, res) => {
   User.create(user).then(user => {
     req.logIn(user, (error, user) => {
       if (error) {
-        res.render('user/register', {error: 'Authentication not working!'})
+        res.render('user/register', {
+          error: 'Authentication not working!'
+        })
         return
       }
 
@@ -71,8 +91,10 @@ module.exports.wishlistGet = (req, res) => {
       res.redirect(`/?error=${encodeURIComponent('User was not found!')}`)
       return
     }
-    
-    res.render('wishlist/index', {products : user.wishlist})
+
+    res.render('wishlist/index', {
+      products: user.wishlist
+    })
   })
 }
 
@@ -82,25 +104,26 @@ module.exports.wishlistPost = (req, res) => {
   User.findById(req.user._id).then((user) => {
     if (!user.wishlist.includes(productId)) {
       req.user.wishlist.push(productId)
-      Product.findOneAndUpdate({
-        _id: productId
-      }, {$inc: {
-        wishCount: 1
-      }
+      Product.find
+      Product.findByIdAndUpdate(productId, {
+        $inc: {
+          wishCount: 1
+        }
       }, {
-      upsert: true,
-      new: true,
-      setDefaultsOnInsert: true
+        upsert: true,
+        new: true,
+        setDefaultsOnInsert: true
+      }, (error, doc) => {
+        req.user.save().then(() => {
+          res.redirect('/wishlist')
+        })
       })
-      
-      req.user.save().then(() => {
-        res.redirect('/wishlist')
-      })
+
     } else {
       res.redirect('/wishlist')
     }
   })
-  
+
 }
 
 
@@ -111,13 +134,19 @@ module.exports.loginGet = (req, res) => {
 module.exports.loginPost = (req, res) => {
   let userToLogin = req.body
 
-  User.findOne({username: userToLogin.username}).then(user => {
+  User.findOne({
+    username: userToLogin.username
+  }).then(user => {
     if (!user || !user.authenticate(userToLogin.password)) {
-      res.render('user/login', {error: 'Invalid credentials!'})
+      res.render('user/login', {
+        error: 'Invalid credentials!'
+      })
     } else {
       req.logIn(user, (error, user) => {
         if (error) {
-          res.render('user/login', {error: 'Authentication not working!'})
+          res.render('user/login', {
+            error: 'Authentication not working!'
+          })
           return
         }
         res.redirect('/')
@@ -133,9 +162,11 @@ module.exports.logout = (req, res) => {
 
 
 module.exports.getUsers = (req, res) => {
-  
+
   User.find().populate('boughtProducts').populate('createdProducts').populate('bidProducts').then((users) => {
-    res.render('member/index', {users:users})
+    res.render('member/index', {
+      users: users
+    })
   })
 }
 
@@ -160,7 +191,9 @@ module.exports.editGet = (req, res) => {
     }
 
     if (req.user.role == 'Admin') {
-      res.render('member/edit', {user: user})
+      res.render('member/edit', {
+        user: user
+      })
     } else {
       res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
     }
@@ -182,7 +215,7 @@ module.exports.editPost = (req, res) => {
       user.name = editedUser.name
       user.email = editedUser.email
       user.address = editedUser.address
-      
+
       if (editedUser.password && editedUser.password !== editedUser.confirmedPassword) {
         user.error = 'Passwords do not match.'
         res.redirect('/member')
@@ -197,10 +230,10 @@ module.exports.editPost = (req, res) => {
         user.password = hashedPassword
       }
 
-      user.save().then(()=> {
+      user.save().then(() => {
         res.redirect('/member')
       })
-      
+
     } else {
       res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
     }

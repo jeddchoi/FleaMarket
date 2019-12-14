@@ -11,16 +11,17 @@ block content
             a.list-group-item(href=`/category/${menu.name}`)=menu.name
       .col-lg-9.my-5
         .row
-          each product in selectedCategory.products
-            .col-lg-4.col-md-6.mb-4
-              a.card.h-100(href="/product/" + product._id)
-                img.card-img-top(src=`${product.image}`, alt='')
-                .card-footer
-                  if product.isAuction
-                    h5 Auction
-                  else
-                    h5 Buy It Now
-                .card-body
-                  h4.card-title=product.name
-                  h5="₩"+product.price
-                  p.card-text=product.description
+          if selectedCategory
+            each product in selectedCategory.products
+              .col-lg-4.col-md-6.mb-4
+                a.card.h-100(href="/product/" + product._id)
+                  img.card-img-top(src=`${product.image}`, alt='')
+                  .card-footer
+                    if product.isAuction
+                      h5 Auction
+                    else
+                      h5 Buy It Now
+                  .card-body
+                    h4.card-title=product.name
+                    h5="₩"+product.price
+                    p.card-text=product.description

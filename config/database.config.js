@@ -6,7 +6,9 @@ module.exports = (config) => {
   mongoose.connect(config.connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false
   })
+  
   mongoose.set('useCreateIndex', true)
   let database = mongoose.connection
 
