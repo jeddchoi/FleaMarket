@@ -41,6 +41,12 @@ let productSchema = mongoose.Schema({
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  wishCount: {
+    type: mongoose.Schema.Types.Number,
+    min: 0,
+    max: Number.MAX_VALUE,
+    default: 0
   }
 })
 

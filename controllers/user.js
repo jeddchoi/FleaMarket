@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const encryption = require('../utilities/encryption')
+const Product = require('../models/Product')
 
 module.exports.index = (req, res) => {
   if (req.user) {
@@ -81,6 +82,17 @@ module.exports.wishlistPost = (req, res) => {
   User.findById(req.user._id).then((user) => {
     if (!user.wishlist.includes(productId)) {
       req.user.wishlist.push(productId)
+      Product.findOneAndUpdate({
+        _id: productId
+      }, {$inc: {
+        wishCount: 1
+      }
+      }, {
+      upsert: true,
+      new: true,
+      setDefaultsOnInsert: true
+      })
+      
       req.user.save().then(() => {
         res.redirect('/wishlist')
       })

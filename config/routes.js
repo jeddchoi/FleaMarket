@@ -9,7 +9,8 @@ module.exports = (app) => {
   // main page
   app.get('/', controllers.home.index)
 
-  app.get('/search', controllers.home.search)
+  app.get('/search', controllers.home.searchGet)
+  app.post('/search', controllers.home.searchPost)
   // all products
   app.get('/product', controllers.product.index)
   

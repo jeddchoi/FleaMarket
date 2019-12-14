@@ -2,6 +2,7 @@ extends ../layout.pug
 
 block content
     .container
+        
         .row
             .col-lg-3
                 h1.my-5 Search
@@ -18,8 +19,9 @@ block content
                 h3.pt-3.search-label Price
                 input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
                 .my-3
-                    form.form-inline
-                        input.form-control(type='text', placeholder='Price', aria-label='Price')
+                    form.form-inline(style="float: left")
+                        input.form-control(type='number', placeholder='Low Price', aria-label='Price')
+                        input.form-control(type='number', placeholder='High Price', aria-label='Price')
                 .my-4
                     form.mb-2(action="", method="post")
                         input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Search')

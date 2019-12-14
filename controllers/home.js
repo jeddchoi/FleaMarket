@@ -19,11 +19,14 @@ module.exports.index = (req, res) => {
   })
 }
 
-module.exports.search = (req, res) => {
-  let queryData = req.query
-
+module.exports.searchGet = (req, res) => {
   Product.find().then((products) => {
-
     res.render('home/search', {products : products})
   })
+}
+
+module.exports.searchPost = (req, res) => {
+  let productName = req.body.productName
+  let sellerName = req.body.sellerName
+  let 
 }
