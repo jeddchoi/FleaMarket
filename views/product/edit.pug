@@ -12,11 +12,11 @@ block content
               .col-md-6
                 .form-label-group
                     select#category.input-field.form-control(name='category')
-                    each category in categories
+                      each category in categories
                         if category.name == product.category.name
-                            option(value=`${category._id}`, selected="selected")=category.name
+                          option(value=`${category._id}`, selected="selected")=category.name
                         else
-                            option(value=`${category._id}`)=category.name
+                          option(value=`${category._id}`)=category.name
                     label(for='category') Category
               .col-md-6
                 .form-label-group

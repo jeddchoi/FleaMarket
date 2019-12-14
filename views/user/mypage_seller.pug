@@ -50,9 +50,10 @@ block content
                                             h4.card-title=product.name
                                             h5="₩"+product.price
                                             p.card-text=product.description
-                                            form(style="float: left; width: 47%" action="/product/"+product._id+"/edit", method="get")
-                                                    input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Edit')
+                                            form(style="float: left; width: 47%", action=`/product/${product._id}/edit`, method="get")
+                                                input.btn.btn-light.form-btn(style="width:100%", type='submit', value='Edit')
                                             form(style="float: right; width: 47%" action="/product/unregister", method="post")
+                                                input(type='hidden', name='pid', value=`${product._id}`)
                                                 input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Delete')
         // Auction product list
         .card.not-product.my-5
@@ -79,11 +80,14 @@ block content
                                             p.card-text=product.description
                                             if product.status == "Registered"
                                                 form.mb-2(action="/product/draw", method="post")
-                                                        input.btn.btn-secondary.form-btn(style="width:100%" type='submit', value='Draw')
+                                                    input(type='hidden', name='pid', value=`${product._id}`)
+                                                    input.btn.btn-secondary.form-btn(style="width:100%" type='submit', value='Draw')
                                             else
                                                 form.mb-2(action="/product/cancel_draw", method="post")
-                                                        input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Cancel Draw')
-                                            form(style="float: left; width: 47%" action="/product/"+product._id+"/edit", method="get")
+                                                    input(type='hidden', name='pid', value=`${product._id}`)
+                                                    input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Cancel Draw')
+                                            form(style="float: left; width: 47%" action=`/product/${product._id}/edit`, method="get")
                                                     input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Edit')
                                             form(style="float: right; width: 47%" action="/product/unregister", method="post")
+                                                input(type='hidden', name='pid', value=`${product._id}`)
                                                 input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Delete')

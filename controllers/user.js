@@ -140,13 +140,14 @@ module.exports.detailGet = (req, res) => {
 
 module.exports.editGet = (req, res) => {
   let userId = req.params.id
+
   User.findById(userId).then(user => {
     if (!user) {
       res.sendStatus(404)
       return
     }
 
-    if (req.user.role.equals('Admin')) {
+    if (req.user.role == 'Admin') {
       res.render('member/edit', {user: user})
     } else {
       res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
@@ -164,12 +165,30 @@ module.exports.editPost = (req, res) => {
       return
     }
 
-    if (req.user.role.equals('Admin')) {
+    if (req.user.role == 'Admin') {
       user.username = editedUser.username
       user.name = editedUser.name
       user.email = editedUser.email
       user.address = editedUser.address
-      res.redirect('/member')
+      
+      if (editedUser.password && editedUser.password !== editedUser.confirmedPassword) {
+        user.error = 'Passwords do not match.'
+        res.redirect('/member')
+        return
+      }
+
+      let salt = encryption.generateSalt()
+      user.salt = salt
+
+      if (editedUser.password) {
+        let hashedPassword = encryption.generateHashedPassword(salt, editedUser.password)
+        user.password = hashedPassword
+      }
+
+      user.save().then(()=> {
+        res.redirect('/member')
+      })
+      
     } else {
       res.redirect(`/?error=${encodeURIComponent('You cannot edit this user!')}`)
     }
@@ -179,7 +198,7 @@ module.exports.editPost = (req, res) => {
 module.exports.deletePost = (req, res) => {
   let userId = req.params.id
 
-  if (req.user.role.equals('Admin')) {
+  if (req.user.role == 'Admin') {
     User.findByIdAndRemove(userId).then(() => {
       res.redirect('/member')
     })

@@ -24,7 +24,7 @@ module.exports.index = (req, res) => {
 module.exports.detailGet = (req, res) => {
   let productId = req.params.id
   
-  Product.findById(productId).populate('seller category priceHistory').then(product => {
+  Product.findById(productId).populate('seller product').populate({ path: 'priceHistory', populate : {path: 'user', model: 'User'}}).then(product => {
     if (!product) {
       res.sendStatus(404)
       return
@@ -168,12 +168,12 @@ module.exports.unregisterPost = (req, res) => {
   let productId = req.body.pid
 
   Product.findById(productId).then((product) => {
-    if (!product || !product.status.equals("Registered")) {
+    if (!product || !product.status == "Registered") {
       res.redirect(`/?error=${encodeURIComponent('You cannot unregister the product')}`)
       return
     }
 
-    if (product.seller.equals(req.user._id) &&req.user.role.equals('Seller')) {
+    if (product.seller.equals(req.user._id) &&req.user.role == 'Seller') {
       Category.findById(product.category).then((category) => {
         let index = category.products.indexOf(id)
         if (index >= 0) {
@@ -203,9 +203,8 @@ module.exports.editGet = (req, res) => {
       res.sendStatus(404)
       return
     }
-
     if (product.seller.equals(req.user._id) &&
-    req.user.role.equals('Seller')) {
+    req.user.role =='Seller') {
       Category.find().then((categories) => {
         res.render('product/edit', {
           product: product,
@@ -213,7 +212,7 @@ module.exports.editGet = (req, res) => {
         })
       })
     } else {
-      res.redirect(`/?error=${encodeURIComponent('You cannot edit this product!')}`)
+      res.redirect(`/?error=${encodeURIComponent('You cannot edit this product! : edit')}`)
     }
   })
 }
@@ -229,7 +228,7 @@ module.exports.editPost = (req, res) => {
     }
 
     if (product.seller.equals(req.user._id) &&
-      req.user.role.equals('Seller')) {
+      req.user.role =='Seller') {
       product.name = editedProduct.name
       product.description = editedProduct.description
       product.price = editedProduct.description
@@ -277,7 +276,7 @@ module.exports.drawPost = (req, res) => {
   let productId = req.body.pid
 
   Product.findById(productId).then(product => {
-    if (product.status != "Registered") {
+    if (product.status !== "Registered") {
       let error = `error=${encodeURIComponent('You cannot draw')}`
       res.redirect(`/?${error}`)
       return

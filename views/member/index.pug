@@ -26,7 +26,7 @@ block content
                                 th
                         tbody
                             each user in users
-                                if !(user.name == "administrator")
+                                if !(user.role == "Admin")
                                     tr
                                         td=user.name
                                         td=user.role
