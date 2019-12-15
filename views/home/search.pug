@@ -2,31 +2,30 @@ extends ../layout.pug
 
 block content
     .container
-        
         .row
             .col-lg-3
-                form.form.center-form(method='post' action="/search" enctype='multipart/form-data')
+                form.form.center-form(method='post')
                     h1.my-5 Search
                     h3.pt-3.search-label Product Name
-                    input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
+                    input#checkbox1.checkbox.pull-right.mx-2(type='checkbox', name='chkProduct')
                     .my-3
-                        input.form-control(type='text', placeholder='Product Name', aria-label='Product Name')
+                        input.form-control(type='text', placeholder='Product Name', aria-label='Product Name', name='productName')
                     h3.pt-3.search-label Seller Name
-                    input#checkbox2.checkbox.pull-right.mx-2(type='checkbox')
+                    input#checkbox2.checkbox.pull-right.mx-2(type='checkbox', name='chkSeller')
                     .my-3
                         input.form-control(type='text', placeholder='Seller Name', aria-label='Seller Name')
                     h3.pt-3.search-label Price
-                    input#checkbox3.checkbox.pull-right.mx-2(type='checkbox')
+                    input#checkbox3.checkbox.pull-right.mx-2(type='checkbox', name='chkPrice')
                     .my-3
-                        input.form-control(type='number', placeholder='Low Price', aria-label='Price')
-                        input.mt-1.form-control(type='number', placeholder='High Price', aria-label='Price')
+                        input.form-control(type='number', placeholder='Low Price', aria-label='Price', name='lowPrice')
+                        input.mt-1.form-control(type='number', placeholder='High Price', aria-label='Price', name='highPrice')
                     .my-4
                         input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Search')
             .col-lg-9.my-5
                 .row
                     each product in products
                         .col-lg-4.col-md-6.mb-4
-                            a.card.h-100(href="/product/:id")
+                            a.card.h-100(href=`/product/${product._id}`)
                                 img.card-img-top(src=`${product.image}`, alt='')
                                 .card-footer
                                     if product.isAuction

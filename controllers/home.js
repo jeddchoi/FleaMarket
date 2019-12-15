@@ -28,5 +28,39 @@ module.exports.searchGet = (req, res) => {
 module.exports.searchPost = (req, res) => {
   let productName = req.body.productName
   let sellerName = req.body.sellerName
-  let 
+  let lowPrice = req.body.lowPrice
+  let highPrice = req.body.highPrice
+
+
+    Product.find({
+      $and: [{
+          name: {
+            $regex: `.*${productName}.*`
+          }
+        },
+        {
+          price: {
+            $gt: lowPrice
+          }
+        },
+        {
+          price: {
+            $lt: highPrice
+          }
+        }
+      ]
+    }, {multi: true}).populate('seller').then((products) => {
+      
+      let data = {
+        products: []
+      }
+      for (let product in products) {
+        console.log(product)
+        if (product.seller.name.toString().match(`.*${sellerName}.*`)) {
+          data.products.push(product)
+        }
+      }
+      
+      res.render('home/search', data)
+    })
 }
