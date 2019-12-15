@@ -29,6 +29,9 @@ block content
                                 tr
                                     td=transaction.executedTime
                                     td=transaction.type
-                                    td=transaction.product
-                                    td=transaction.user
+                                    if transaction.product == null
+                                        td="null"
+                                    else
+                                        td=transaction.product.name
+                                    td=transaction.user.name
                                     td=transaction.price
