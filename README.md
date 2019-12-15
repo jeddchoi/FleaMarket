@@ -273,8 +273,38 @@ You can view transaction logs when users do 'Register', 'Unregister', 'Purchase'
 
 #### 15. MyPage
 
+##### Buyer
+You can view the acoount information, total shop amount on the top section.
+
+Also, you can view purchased non-auction items and auction items on the each bottom two sections.
+The cards inside the section can be clicked to move to the detail page of the corresponding product.
+
+
+##### Seller
+You can view the acoount information on the top section.
+
+Also, you can view registered non-auction items and auction items on the each bottom two sections.
+The cards inside the section can be clicked to move to the detail page of the corresponding product.
+The card includes edit and delete button in common, and draw/draw-cancel button only on auction item section.
+
+
+##### Admin
+You can view the acoount information on the top section.
+
+There's a button on the bottom section for adding new categories. It leads to a category register page.
 
 
 #### 16. Products by Categories
 
 ![image-20191215140458004](/Users/jed/Library/Application Support/typora-user-images/image-20191215140458004.png)
+
+Products can be viewed according to the product's assigned category.
+
+#### 17. Advertisement Carousel Area in Home page
+
+There's an area in the homepage where you can advertise and show banner images. It shows three different images and texts. it also slides automatically ss time goes and can be slided by moblie touch-slide action. We used owl-carousel framework for implementation.
+
+
+#### 18. Mobile version compatible
+
+The total website is responsive. It is compatible for all browser sizes and shows different structure for moblie users. We used Bootstrap4 for implementation.
