@@ -1,10 +1,11 @@
 extends ../layout.pug
 
 block content
-  h2 Add Category
-  form#add-category-form.center-form(method='post')
-    .form-group
-      label(for='name') Name
-      input#name.input-field(name='name', type='text')
-    .form-group
-      input#add-category-btn.btn(type='submit', value='Add')
+  .container
+    h1.my-5 Add Category
+    form#add-category-form.center-form(method='post')
+      .form-group
+        .col-md-6
+          input#name.form-control.input-field(name='name', type='text', placeholder='Category Name', required='required', autofocus='autofocus')
+          label(for='name') Category Name
+          input#add-category-btn.btn.btn-light.btn-block.form-btn.my-3(type='submit', value='Add')
