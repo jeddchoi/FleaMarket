@@ -304,7 +304,13 @@ We used Bootstrap 4 card class for section design.
 
 ![image-20191215135730739](/Users/jed/Library/Application Support/typora-user-images/image-20191215135730739.png)
 
-You can view transaction logs when users do 'Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw' or 'CancelDraw'.
+You can view transaction logs on a data-table when users do 'Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw' or 'CancelDraw'.
+
+This page is only shown to administor account and can be accessed by clicking the 'log' menu in the navigation which is only shown when an administor account logs in.
+
+The list is sorted by time in default and can be sorted by transaction type, product, user, and price. You can search with any information shown on the list. You can also decide how many entries you want to show per page. There is a pageination navigation at the bottom of the table.
+
+We used DataTable javascript plugin for implementation.
 
 #### 15. MyPage
 
