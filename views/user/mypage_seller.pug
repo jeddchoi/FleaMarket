@@ -48,7 +48,6 @@ block content
                                         .card-body
                                             h4.card-title=product.name
                                             h5="₩"+product.price
-                                            p.card-text=product.description
                                             form(style="float: left; width: 47%", action=`/product/${product._id}/edit`, method="get")
                                                 input.btn.btn-light.form-btn(style="width:100%", type='submit', value='Edit')
                                             form(style="float: right; width: 47%" action="/product/unregister", method="post")
@@ -76,7 +75,6 @@ block content
                                         .card-body
                                             h4.card-title=product.name
                                             h5="₩"+product.price
-                                            p.card-text=product.description
                                             if product.status == "Registered"
                                                 form.mb-2(action="/product/draw", method="post")
                                                     input(type='hidden', name='pid', value=`${product._id}`)

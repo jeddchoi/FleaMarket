@@ -1,4 +1,4 @@
-//- logout button
+//- logout button, add category
 
 extends ../layout.pug
 
@@ -24,3 +24,7 @@ block content
                         li
                             p Address
                             span=': '+user.address
+        // Add Category
+        h1.mt-5 Add Category
+        form(class="account-info-container" action='category/add', method="get")
+            input.my-5.btn.btn-light.form-btn(style="width:100%" type='submit', value='Add Category')

@@ -5,25 +5,22 @@ block content
         
         .row
             .col-lg-3
-                h1.my-5 Search
-                h3.pt-3.search-label Product Name
-                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-                .my-3
-                    form.form-inline
+                form.form.center-form(method='post' action="/search" enctype='multipart/form-data')
+                    h1.my-5 Search
+                    h3.pt-3.search-label Product Name
+                    input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
+                    .my-3
                         input.form-control(type='text', placeholder='Product Name', aria-label='Product Name')
-                h3.pt-3.search-label Seller Name
-                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-                .my-3
-                    form.form-inline
+                    h3.pt-3.search-label Seller Name
+                    input#checkbox2.checkbox.pull-right.mx-2(type='checkbox')
+                    .my-3
                         input.form-control(type='text', placeholder='Seller Name', aria-label='Seller Name')
-                h3.pt-3.search-label Price
-                input#checkbox1.checkbox.pull-right.mx-2(type='checkbox')
-                .my-3
-                    form.form-inline(style="float: left")
+                    h3.pt-3.search-label Price
+                    input#checkbox3.checkbox.pull-right.mx-2(type='checkbox')
+                    .my-3
                         input.form-control(type='number', placeholder='Low Price', aria-label='Price')
-                        input.form-control(type='number', placeholder='High Price', aria-label='Price')
-                .my-4
-                    form.mb-2(action="", method="post")
+                        input.mt-1.form-control(type='number', placeholder='High Price', aria-label='Price')
+                    .my-4
                         input.btn.btn-light.form-btn(style="width:100%" type='submit', value='Search')
             .col-lg-9.my-5
                 .row
@@ -39,4 +36,3 @@ block content
                                 .card-body
                                     h4.card-title=product.name
                                     h5="₩"+product.price
-                                    p.card-text=product.description
