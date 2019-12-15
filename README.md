@@ -6,15 +6,6 @@ Window OS를 기준으로 합니다.
 
 ## Prefequisites
 
-1. Install MongoDB
-2. Install npm, node, 
-3. npm install
-4. forever
-5. supervisor
-6. app.settings.env = 'production'
-
-
-
 1. Node.js 및 npm 다운로드(https://nodejs.org/ko/download/) : node.js(13.2.0), npm(6.13.2)
 
 2. ```bash
@@ -28,27 +19,13 @@ Window OS를 기준으로 합니다.
 
 4. MongoDB 다운로드(https://www.mongodb.com/download-center/community)
 
-5. 
-
-
-
-
-
-## TODO
-
-1. ```javascript
-   app.settings.env = 'production'; // 배포시 app.js에서 주석해제
+5. ```bash
+   npm start
    ```
 
-2. 데이터베이스 미리 데이터 넣어오기, 리포트 하드카피 제출
+6. [FleaMarket 접속]: http://localhost:3500
 
-3. 어떻게 13가지 함수를 구현했는지 서술, 추가기능
-
-4. 
-
-
-
-
+   
 
 ## Database
 
@@ -143,7 +120,7 @@ Window OS를 기준으로 합니다.
   status: {
     type: mongoose.Schema.Types.String,
     enum: {
-      values: ['None', 'Registered', 'InProgress', 'Completed']
+      values: ['None', 'Registered','Completed']
     }
   },
   priceHistory: [{
@@ -153,6 +130,12 @@ Window OS를 기준으로 합니다.
   seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  }, 
+  wishCount: {
+    type: mongoose.Schema.Types.Number,
+    min: 0,
+    max: Number.MAX_VALUE,
+    default: 0
   }
 }
 ```
@@ -183,7 +166,7 @@ Window OS를 기준으로 합니다.
   type: {
         type: mongoose.Schema.Types.String,
         enum: {
-            values: ['Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw', 'CancelDraw', 'ConfirmSale', 'ConfirmPurchase']
+            values: ['Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw', 'CancelDraw']
         }
     },
   product: {
@@ -206,5 +189,92 @@ Window OS를 기준으로 합니다.
 
 
 
+## 13 functions
+
+### Administrator Logic
+
+#### 1. Member List
+
+[Member List]:http://localhost:3500/member/index
 
 
+
+![image-20191215135235640](/Users/jed/Library/Application Support/typora-user-images/image-20191215135235640.png)
+
+#### 2. Member Modification / Delete
+
+[Member Edit]:http://localhost:3500/member/:id
+
+You can edit member information or delete on member list page.
+
+![image-20191215135316093](/Users/jed/Library/Application Support/typora-user-images/image-20191215135316093.png)
+
+
+
+### Seller
+
+#### 3. Product Registration
+
+
+
+#### 4. Product Modification / Product Unregisteration
+
+#### 5. Seller's Product List
+
+
+
+### Buyer
+
+#### 6. Product List
+
+[All Products]:http://localhost:3500/product
+
+![image-20191215140421704](/Users/jed/Library/Application Support/typora-user-images/image-20191215140421704.png)
+
+#### 7. Product Search
+
+![image-20191215140922233](/Users/jed/Library/Application Support/typora-user-images/image-20191215140922233.png)
+
+#### 8. Wishlist
+
+![image-20191215140911099](/Users/jed/Library/Application Support/typora-user-images/image-20191215140911099.png)
+
+#### 9. Product Purchase
+
+#### 10. Calculation and Print of Shopping List
+
+
+
+### Common
+
+#### 11. Login Page
+
+#### 12. Sign Up Page(with user input validation)
+
+#### 13. Product Page
+
+[Product Detail Page]:http://localhost:3500/product/:id
+
+##### Non-Auction
+
+![image-20191215140532004](/Users/jed/Library/Application Support/typora-user-images/image-20191215140532004.png)
+
+##### Auction
+
+![image-20191215140545924](/Users/jed/Library/Application Support/typora-user-images/image-20191215140545924.png)
+
+## Additional Features
+
+#### 14. Transaction Logs(Administrator)
+
+![image-20191215135730739](/Users/jed/Library/Application Support/typora-user-images/image-20191215135730739.png)
+
+You can view transaction logs when users do 'Register', 'Unregister', 'Purchase', 'CancelPurchase', 'Bid', 'Draw' or 'CancelDraw'.
+
+#### 15. MyPage
+
+
+
+#### 16. Products by Categories
+
+![image-20191215140458004](/Users/jed/Library/Application Support/typora-user-images/image-20191215140458004.png)
