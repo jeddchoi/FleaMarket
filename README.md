@@ -231,7 +231,7 @@ You can register a new product on the product register page.
 
 The product register page is only shown to seller accounts.
 
-The product register page follows the member register page design. You have to input category, whether auction or not, name, price, description, and a single image. You can only input numbers inside the price input section. There is also an reset button right next to the upload button for deleting the image mistakenly uploaded. Finally, you can register the product by pressing the 'register' button and if the product is successfully registered, it will lead to the detail page of the corresponding product.
+The product register page follows the member register page design. You have to input category, whether auction or not, name, price, description, and a single image. You can only input numbers inside the price input section. There is also an reset button right next to the upload button for deleting the image mistakenly uploaded. You can register auction products with no price to start from 0. Finally, you can register the product by pressing the 'register' button and if the product is successfully registered, it will lead to the detail page of the corresponding product.
 
 We used Bootstrap 4 card class for section design.
 
@@ -253,7 +253,7 @@ You can view registered products on seller mypage. There are auction and non-auc
 
 The seller mypage is only shown to seller accounts.
 
-The product cards show how many buyers included the product  to the wishlist and for auction product, the auction status of the product is also shown inside the card. The price of the auction product is updated every time the bidding is held.
+The product cards show how many buyers included the product  to the wishlist and for auction product, the auction status of the product is also shown inside the card. The price of the auction product is updated every time the bidding is held. The seller can draw the auction by pressing the 'draw' button inside the auction product cards.
 
 We used Bootstrap 4 card class for section design.
 
@@ -266,37 +266,88 @@ We used Bootstrap 4 card class for section design.
 
 ![image-20191215140421704](/Users/jed/Library/Application Support/typora-user-images/image-20191215140421704.png)
 
+You can view all products on all prooducts page.
+
+This page is shown to all users including no account users.
+
+The shown products are reversely sorted by upload time so you can see the latest product at the top-left section.
+
+We used Bootstrap 4 card class for section design.
+
 #### 7. Product Search
 
 ![image-20191215140922233](/Users/jed/Library/Application Support/typora-user-images/image-20191215140922233.png)
+
+You can search products on product search page.
+
+This page is shown to all users including no account users.
+
+You can search for products by product name, seller name, or price range. two or more condtion combined search is also available.
+
+We used Bootstrap 4 for design.
 
 #### 8. Wishlist
 
 ![image-20191215140911099](/Users/jed/Library/Application Support/typora-user-images/image-20191215140911099.png)
 
+You can view wishlist added products on product wishlist page.
+
+This page is only shown to buyer accounts.
+
+
 #### 9. Product Purchase
+
+You can purchase products in the product detail page.
+
+Non-auction products can be purchased by pressing the buy button. Auction products can be bidded with higher number than the original price and when the seller draws the product, the product is purchased by the last bidded buyer.
+
 
 #### 10. Calculation and Print of Shopping List
 
+The purchased products price is added to the total purchased amount shown in the buyer mypage. It is inside the account information section.
 
 
 ### Common
 
 #### 11. Login Page
 
+You can login in the login page.
+
+This page can be accessed by pressing the person logo in the top navigation bar. You have to be not logged in.
+
+We used Bootstrap 4 card class for section design.
+
+
 #### 12. Sign Up Page(with user input validation)
+
+You can sign up and register account in the user register page.
+
+This page can be accessed by pressing the 'Register an Account' button at the bottom section of login page. You have to input account role, user name, password, name, email address, user address. If the confirm password section is different with the password section, the page will reset. Also, if the email address doesn't contain '@' and there is no text after it, or the input section is a blank, error window is shown beneath input section.
+
+We used Bootstrap 4 card class for section design.
+
 
 #### 13. Product Page
 
 [Product Detail Page]:http://localhost:3500/product/:id
 
+You can view product detail on product detail page.
+
+This page is shown to all users including no account users.
+
+We used Bootstrap 4 for design and DataTable javascript plugin for implementation.
+
 ##### Non-Auction
 
 ![image-20191215140532004](/Users/jed/Library/Application Support/typora-user-images/image-20191215140532004.png)
 
+You can view all information about the product including product name, category, status, seller name, trading place, upload time. You can add the product to wishlist by pressing the button below the information text.
+
 ##### Auction
 
 ![image-20191215140545924](/Users/jed/Library/Application Support/typora-user-images/image-20191215140545924.png)
+
+If the product is an auction product, the bidding, and auction history section is shown. You can bid on the product and show the history list data-table in those sections.
 
 ## Additional Features
 
