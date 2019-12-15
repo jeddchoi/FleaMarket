@@ -197,6 +197,13 @@ Window OS를 기준으로 합니다.
 
 [Member List]:http://localhost:3500/member/index
 
+You can view all member(except administor) list on a data-table.
+
+This page is only shown to administor account and can be accessed by clicking the menu in the navigation which is only shown when an administor account logs in.
+
+The list is sorted by name in default and can be sorted by role, email, and address. You can search with any information shown on the list. You can also decide how many entries you want to show per page. There is a pageination navigation at the bottom of the table.
+
+We used DataTable javascript plugin for implementation.
 
 
 ![image-20191215135235640](/Users/jed/Library/Application Support/typora-user-images/image-20191215135235640.png)
@@ -205,22 +212,50 @@ Window OS를 기준으로 합니다.
 
 [Member Edit]:http://localhost:3500/member/:id
 
-You can edit member information or delete on member list page.
+You can edit member information or delete on member list page. There are two, edit and delete buttons at the far right section of the table. You can either go to the member edit page, or delete the member by pressing those buttons.
 
 ![image-20191215135316093](/Users/jed/Library/Application Support/typora-user-images/image-20191215135316093.png)
 
+The member edit page is only shown to an administor account.
+
+The member edit page has the same structure with the account register page. When you go to the member edit page, the form maintains the original account information on the input sections. Clicking the 'Edit' button will edit the member's information with the information you input. There is a 'cancel edit' button at the bottom to cancel editing and this will lead to the member list page.
+
+We used DataTable javascript plugin for implementation.
 
 
 ### Seller
 
 #### 3. Product Registration
 
+You can register a new product on the product register page.
+
+The product register page is only shown to seller accounts.
+
+The product register page follows the member register page design. You have to input category, whether auction or not, name, price, description, and a single image. You can only input numbers inside the price input section. There is also an reset button right next to the upload button for deleting the image mistakenly uploaded. Finally, you can register the product by pressing the 'register' button and if the product is successfully registered, it will lead to the detail page of the corresponding product.
+
+We used Bootstrap 4 card class for section design.
 
 
 #### 4. Product Modification / Product Unregisteration
 
+You can edit or delete a product on seller mypage. There are two, edit and delete buttons inside the card section for each product. You can either go to the product edit page, or delete the product by pressing those buttons.
+
+The product edit page is only shown to seller accounts.
+
+The product edit page has the same structure with the product register page. When you go to the product edit page, the form maintains the original product information on the input sections. Clicking the 'Edit' button will edit the product's information with the information you input. There is a 'cancel edit' button at the bottom to cancel editing and this will lead to the seller my page.
+
+We used Bootstrap 4 card class for section design.
+
+
 #### 5. Seller's Product List
 
+You can view registered products on seller mypage. There are auction and non-auction product sections and cards for each products is inside those sections.
+
+The seller mypage is only shown to seller accounts.
+
+The product cards show how many buyers included the product  to the wishlist and for auction product, the auction status of the product is also shown inside the card. The price of the auction product is updated every time the bidding is held.
+
+We used Bootstrap 4 card class for section design.
 
 
 ### Buyer
