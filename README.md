@@ -1,6 +1,6 @@
 # Flea Market Website
 
-Window OS를 기준으로 합니다.
+조원 : 변영민(2016314052), 최광영(2012311404)
 
 
 
@@ -195,8 +195,6 @@ Window OS를 기준으로 합니다.
 
 #### 1. Member List
 
-[Member List]:http://localhost:3500/member/index
-
 You can view all member(except administor) list on a data-table.
 
 This page is only shown to administor account and can be accessed by clicking the menu in the navigation which is only shown when an administor account logs in.
@@ -210,8 +208,6 @@ We used DataTable javascript plugin for implementation.
 
 #### 2. Member Modification / Delete
 
-[Member Edit]:http://localhost:3500/member/:id
-
 You can edit member information or delete on member list page. There are two, edit and delete buttons at the far right section of the table. You can either go to the member edit page, or delete the member by pressing those buttons.
 
 ![image-20191215135316093](/Users/jed/Library/Application Support/typora-user-images/image-20191215135316093.png)
@@ -221,7 +217,6 @@ The member edit page is only shown to an administor account.
 The member edit page has the same structure with the account register page. When you go to the member edit page, the form maintains the original account information on the input sections. Clicking the 'Edit' button will edit the member's information with the information you input. There is a 'cancel edit' button at the bottom to cancel editing and this will lead to the member list page.
 
 We used DataTable javascript plugin for implementation.
-
 
 ### Seller
 
@@ -235,6 +230,8 @@ The product register page follows the member register page design. You have to i
 
 We used Bootstrap 4 card class for section design.
 
+![image-20191215234305457](/Users/jed/Library/Application Support/typora-user-images/image-20191215234305457.png)
+
 
 #### 4. Product Modification / Product Unregisteration
 
@@ -246,6 +243,9 @@ The product edit page has the same structure with the product register page. Whe
 
 We used Bootstrap 4 card class for section design.
 
+![image-20191215234325038](/Users/jed/Library/Application Support/typora-user-images/image-20191215234325038.png)
+
+![image-20191215234355770](/Users/jed/Library/Application Support/typora-user-images/image-20191215234355770.png)
 
 #### 5. Seller's Product List
 
@@ -257,12 +257,11 @@ The product cards show how many buyers included the product  to the wishlist and
 
 We used Bootstrap 4 card class for section design.
 
+![image-20191215234430099](/Users/jed/Library/Application Support/typora-user-images/image-20191215234430099.png)
 
 ### Buyer
 
 #### 6. Product List
-
-[All Products]:http://localhost:3500/product
 
 ![image-20191215140421704](/Users/jed/Library/Application Support/typora-user-images/image-20191215140421704.png)
 
@@ -301,11 +300,11 @@ You can purchase products in the product detail page.
 
 Non-auction products can be purchased by pressing the buy button. Auction products can be bidded with higher number than the original price and when the seller draws the product, the product is purchased by the last bidded buyer.
 
-
 #### 10. Calculation and Print of Shopping List
 
 The purchased products price is added to the total purchased amount shown in the buyer mypage. It is inside the account information section.
 
+![image-20191215234545559](/Users/jed/Library/Application Support/typora-user-images/image-20191215234545559.png)
 
 ### Common
 
@@ -317,6 +316,8 @@ This page can be accessed by pressing the person logo in the top navigation bar.
 
 We used Bootstrap 4 card class for section design.
 
+![image-20191215234604478](/Users/jed/Library/Application Support/typora-user-images/image-20191215234604478.png)
+
 
 #### 12. Sign Up Page(with user input validation)
 
@@ -326,10 +327,9 @@ This page can be accessed by pressing the 'Register an Account' button at the bo
 
 We used Bootstrap 4 card class for section design.
 
+![image-20191215234702020](/Users/jed/Library/Application Support/typora-user-images/image-20191215234702020.png)
 
 #### 13. Product Page
-
-[Product Detail Page]:http://localhost:3500/product/:id
 
 You can view product detail on product detail page.
 
@@ -396,7 +396,13 @@ Products can be viewed according to the product's assigned category.
 
 There's an area in the homepage where you can advertise and show banner images. It shows three different images and texts. it also slides automatically ss time goes and can be slided by moblie touch-slide action. We used owl-carousel framework for implementation.
 
+![image-20191215234727678](/Users/jed/Library/Application Support/typora-user-images/image-20191215234727678.png)
+
 
 #### 18. Mobile version compatible
 
 The total website is responsive. It is compatible for all browser sizes and shows different structure for moblie users. We used Bootstrap4 for implementation.
+
+
+
+![image-20191215234748324](/Users/jed/Library/Application Support/typora-user-images/image-20191215234748324.png)
